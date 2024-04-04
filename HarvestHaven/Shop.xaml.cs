@@ -23,15 +23,5 @@ namespace HarvestHaven
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Sell_Carrot_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
