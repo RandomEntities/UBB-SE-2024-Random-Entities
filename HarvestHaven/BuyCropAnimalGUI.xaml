@@ -23,9 +23,9 @@
         <Label x:Name="WheatPriceLabel" Content="15" HorizontalAlignment="Left" Margin="278,245,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="TomatoPriceLabel" Content="27" HorizontalAlignment="Left" Margin="278,318,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Image HorizontalAlignment="Left" Height="60" Margin="461,92,0,0" VerticalAlignment="Top" Width="61" Source="/chicken (1).png"/>
-        <Image HorizontalAlignment="Left" Height="60" Margin="501,151,0,0"Margin="462,168,0,0" VerticalAlignment="Top" Width="62" Source="/sheep-removebg-preview.png"/>
-        <Image HorizontalAlignment="Left" Height="62" Margin="501,228,0,0"Margin="462,244,0,0" VerticalAlignment="Top" Width="56" Source="/cow-removebg-preview.png"/>
-        <Image HorizontalAlignment="Left" Height="68" Margin="496,289,0,0"Margin="457,306,0,0" VerticalAlignment="Top" Width="67" Source="/duck-removebg-preview.png" RenderTransformOrigin="0.516,0.554"/>
+        <Image HorizontalAlignment="Left" Height="60" Margin="462,168,0,0" VerticalAlignment="Top" Width="62" Source="/sheep-removebg-preview.png"/>
+        <Image HorizontalAlignment="Left" Height="62" Margin="462,244,0,0" VerticalAlignment="Top" Width="56" Source="/cow-removebg-preview.png"/>
+        <Image HorizontalAlignment="Left" Height="68" Margin="457,306,0,0" VerticalAlignment="Top" Width="67" Source="/duck-removebg-preview.png" RenderTransformOrigin="0.516,0.554"/>
         <Image Source="/coin.png" Margin="602,102,157,285"/>
         <Image Source="/coin.png" Margin="602,172,157,215"/>
         <Image Source="/coin.png" Margin="602,242,157,145"/>
