@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace HarvestHaven
 {
     /// <summary>
-    /// Interaction logic for BuyCropAnimalGUI.xaml
+    /// Interaction logic for BuyMarket.xaml
     /// </summary>
-    public partial class BuyCropAnimalGUI : Window
+    public partial class BuyMarket : Window
     {
-        public BuyCropAnimalGUI()
+        public BuyMarket()
         {
             InitializeComponent();
         }
