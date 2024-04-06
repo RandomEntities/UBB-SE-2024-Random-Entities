@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Sprites\farm_background.png" />
+    <None Remove="Assets\Sprites\sunglasses_face_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Sprites\backpack_icon.png" />
     <Resource Include="Assets\Sprites\bar_icon.png" />
     <Resource Include="Assets\Sprites\button_icon.jpg" />
@@ -37,6 +42,7 @@
     <Resource Include="Assets\Sprites\shop.PNG" />
     <Resource Include="Assets\Sprites\shop_icon.png" />
     <Resource Include="Assets\Sprites\start_background.jpg" />
+    <Resource Include="Assets\Sprites\sunglasses_face_icon.png" />
     <Resource Include="Assets\Sprites\trade_hall_icon.png" />
     <Resource Include="Assets\Sprites\water_icon.png" />
     <Resource Include="Assets\Sprites\wooden_sign_icon.png" />
