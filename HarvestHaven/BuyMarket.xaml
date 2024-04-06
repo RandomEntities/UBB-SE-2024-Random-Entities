@@ -25,41 +25,41 @@
 
     <Grid Height="450" Width="800">
         <Grid.Background>
-            <ImageBrush ImageSource="/sprites/buy_background.jpg"/>
+            <ImageBrush ImageSource="/Assets/Sprites/buy_background.jpg"/>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="52" Margin="175,100,0,0" VerticalAlignment="Top" Width="57" Source="/sprites/items/carrot.png"/>
-        <Image HorizontalAlignment="Left" Height="54" Margin="171,168,0,0" VerticalAlignment="Top" Width="65" Source="/sprites/items/corn.png"/>
-        <Image HorizontalAlignment="Left" Height="62" Margin="171,234,0,0" VerticalAlignment="Top" Width="57" Source="/sprites/items/wheat.png"/>
-        <Image HorizontalAlignment="Left" Height="71" Margin="169,301,0,0" VerticalAlignment="Top" Width="63" Source="/sprites/items/tomato.png"/>
-        <Image Source="/sprites/coin_icon.png" Margin="318,103,441,285"/>
-        <Image Source="/sprites/coin_icon.png" Margin="318,172,441,216"/>
-        <Image Source="/sprites/coin_icon.png" Margin="318,241,441,145"/>
-        <Image Source="/sprites/coin_icon.png" Margin="318,313,441,74"/>
+        <Image HorizontalAlignment="Left" Height="52" Margin="175,100,0,0" VerticalAlignment="Top" Width="57" Source="/Assets/Sprites/Items/carrot.png"/>
+        <Image HorizontalAlignment="Left" Height="54" Margin="171,168,0,0" VerticalAlignment="Top" Width="65" Source="/Assets/Sprites/Items/corn.png"/>
+        <Image HorizontalAlignment="Left" Height="62" Margin="171,234,0,0" VerticalAlignment="Top" Width="57" Source="/Assets/Sprites/Items/wheat.png"/>
+        <Image HorizontalAlignment="Left" Height="71" Margin="169,301,0,0" VerticalAlignment="Top" Width="63" Source="/Assets/Sprites/Items/tomato.png"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="318,103,441,285"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="318,172,441,216"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="318,241,441,145"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="318,313,441,74"/>
         <Label x:Name="CarrotPriceLabel" Content="20" HorizontalAlignment="Left" Margin="278,106,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="CornPriceLabel" Content="12" HorizontalAlignment="Left" Margin="278,175,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="WheatPriceLabel" Content="15" HorizontalAlignment="Left" Margin="278,245,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="TomatoPriceLabel" Content="27" HorizontalAlignment="Left" Margin="278,318,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
-        <Image HorizontalAlignment="Left" Height="60" Margin="461,92,0,0" VerticalAlignment="Top" Width="61" Source="/sprites/items/chicken.png"/>
-        <Image HorizontalAlignment="Left" Height="60" Margin="462,168,0,0" VerticalAlignment="Top" Width="62" Source="/sprites/items/sheep.png"/>
-        <Image HorizontalAlignment="Left" Height="62" Margin="462,244,0,0" VerticalAlignment="Top" Width="56" Source="/sprites/items/cow.png"/>
-        <Image HorizontalAlignment="Left" Height="68" Margin="457,306,0,0" VerticalAlignment="Top" Width="67" Source="/sprites/items/duck.png" RenderTransformOrigin="0.516,0.554"/>
-        <Image Source="/sprites/coin_icon.png" Margin="602,102,157,285"/>
-        <Image Source="/sprites/coin_icon.png" Margin="602,172,157,215"/>
-        <Image Source="/sprites/coin_icon.png" Margin="602,242,157,145"/>
-        <Image Source="/sprites/coin_icon.png" Margin="602,314,157,72"/>
+        <Image HorizontalAlignment="Left" Height="60" Margin="461,92,0,0" VerticalAlignment="Top" Width="61" Source="/Assets/Sprites/Items/chicken.png"/>
+        <Image HorizontalAlignment="Left" Height="60" Margin="462,168,0,0" VerticalAlignment="Top" Width="62" Source="/Assets/Sprites/Items/sheep.png"/>
+        <Image HorizontalAlignment="Left" Height="62" Margin="462,244,0,0" VerticalAlignment="Top" Width="56" Source="/Assets/Sprites/Items/cow.png"/>
+        <Image HorizontalAlignment="Left" Height="68" Margin="457,306,0,0" VerticalAlignment="Top" Width="67" Source="/Assets/Sprites/Items/duck.png" RenderTransformOrigin="0.516,0.554"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="602,102,157,285"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="602,172,157,215"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="602,242,157,145"/>
+        <Image Source="/Assets/Sprites/coin_icon.png" Margin="602,314,157,72"/>
         <Label x:Name="ChickenPriceLabel" Content="20" HorizontalAlignment="Left" Margin="562,106,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="SheepPriceLabel" Content="40" HorizontalAlignment="Left" Margin="562,178,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="CowPriceLabel" Content="50" HorizontalAlignment="Left" Margin="562,244,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label x:Name="DuckPriceLabel" Content="25" HorizontalAlignment="Left" Margin="562,320,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
-        <Image HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="800" Source="/sprites/bar_icon.PNG" Stretch="Fill"/>
+        <Image HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="800" Source="/Assets/Sprites/bar_icon.PNG" Stretch="Fill"/>
         <Label Content="Buy seed or animal" HorizontalAlignment="Left" Margin="29,-5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="34"/>
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Top" Height="54" Width="199" Foreground="White" FontSize="24">
             <Button.Background>
-                <ImageBrush ImageSource="/sprites/light_bar_icon.PNG"/>
+                <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>
         </Button>
         <Label x:Name="PriceLabel" Content="150" HorizontalAlignment="Left" Margin="492,6,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22"/>
-        <Image HorizontalAlignment="Left" Height="38" Margin="543,7,0,0" VerticalAlignment="Top" Width="42" Source="/sprites/coin_icon.png"/>
+        <Image HorizontalAlignment="Left" Height="38" Margin="543,7,0,0" VerticalAlignment="Top" Width="42" Source="/Assets/Sprites/coin_icon.png"/>
 
     </Grid>
 </Window>
