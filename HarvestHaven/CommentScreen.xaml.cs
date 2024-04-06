@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace HarvestHaven
 {
     /// <summary>
-    /// Interaction logic for CommentLeaving.xaml
+    /// Interaction logic for CommentScreen.xaml
     /// </summary>
-    public partial class CommentLeaving : Window
+    public partial class CommentScreen : Window
     {
-        public CommentLeaving()
+        public CommentScreen()
         {
             InitializeComponent();
         }
