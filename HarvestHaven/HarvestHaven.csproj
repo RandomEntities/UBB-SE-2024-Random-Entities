@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bar_icon.png" />
+    <None Remove="checkmark.png" />
+    <None Remove="gray_bar_icon.png" />
+    <None Remove="inventory_icon.jpg" />
+    <None Remove="market_background.png" />
+    <None Remove="market_background_locked.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Sprites\backpack_icon.png" />
     <Resource Include="Assets\Sprites\bar_icon.png" />
     <Resource Include="Assets\Sprites\button_icon.jpg" />
@@ -40,6 +49,12 @@
     <Resource Include="Assets\Sprites\trade_hall_icon.png" />
     <Resource Include="Assets\Sprites\water_icon.png" />
     <Resource Include="Assets\Sprites\wooden_sign_icon.png" />
+    <Resource Include="bar_icon.png" />
+    <Resource Include="checkmark.png" />
+    <Resource Include="gray_bar_icon.png" />
+    <Resource Include="inventory_icon.jpg" />
+    <Resource Include="market_background.png" />
+    <Resource Include="market_background_locked.png" />
   </ItemGroup>
 
 </Project>
