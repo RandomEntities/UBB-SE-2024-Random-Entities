@@ -23,5 +23,21 @@ namespace HarvestHaven
         {
             InitializeComponent();
         }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            Farm farmScreen = new Farm();
+
+            farmScreen.Top = this.Top;
+            farmScreen.Left = this.Left;
+
+            farmScreen.Show();
+            this.Close();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
