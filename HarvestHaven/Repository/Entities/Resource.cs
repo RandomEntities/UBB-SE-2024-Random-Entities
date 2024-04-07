@@ -8,6 +8,7 @@
 
     public enum ResourceType
     {
+        Water,
         Wheat,
         Corn,
         Carrot,
