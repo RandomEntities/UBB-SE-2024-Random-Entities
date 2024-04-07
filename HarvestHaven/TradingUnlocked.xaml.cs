@@ -12,23 +12,31 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static HarvestHaven.Trading_Unlocked;
+using static HarvestHaven.TradingUnlocked;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HarvestHaven
 {
     /// <summary>
-    /// Interaction logic for Trading_Unlocked.xaml
+    /// Interaction logic for TradingUnlocked.xaml
     /// </summary>
-    public partial class Trading_Unlocked : Window
+    public partial class TradingUnlocked : Window
     {
+        private Farm farmScreen;
 
-        public Trading_Unlocked()
+        public TradingUnlocked(Farm farmScreen)
         {
+            this.farmScreen = farmScreen;
             InitializeComponent();
+        }
 
-            //Button testButton = new Button() { Content="Click me!"};
-            //Trades_List.Items.Add(testButton);
+        private void Back_Button_Click(object sender, RoutedEventArgs e)
+        {
+            farmScreen.Top = this.Top;
+            farmScreen.Left = this.Left;
+
+            farmScreen.Show();
+            this.Close();
         }
 
         private void Give_Button_Click(object sender, RoutedEventArgs e)

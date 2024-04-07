@@ -19,9 +19,21 @@ namespace HarvestHaven
     /// </summary>
     public partial class Inventory : Window
     {
-        public Inventory()
+        private Farm farmScreen;
+
+        public Inventory(Farm farmScreen)
         {
+            this.farmScreen = farmScreen;
             InitializeComponent();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            farmScreen.Top = this.Top;
+            farmScreen.Left = this.Left;
+
+            farmScreen.Show();
+            this.Close();
         }
     }
 }

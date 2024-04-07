@@ -54,7 +54,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,150,0">
-                    <Button x:Name="PlayButton"  Content="Play" Height="50" Width="150" VerticalAlignment="Center" FontSize="24" FontWeight="Bold">
+                    <Button x:Name="PlayButton"  Content="Play" Height="50" Width="150" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Click="PlayButton_Click">
                         <Button.Effect>
                             <DropShadowEffect Color="Black" ShadowDepth="5" Direction="-50" BlurRadius="20"/>
                         </Button.Effect>
@@ -69,7 +69,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="150,0,0,0">
-                    <Button x:Name="ExitButton"  Content="Exit" Height="50" Width="150" VerticalAlignment="Center" FontSize="24" FontWeight="Bold">
+                    <Button x:Name="ExitButton"  Content="Exit" Height="50" Width="150" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Click="ExitButton_Click">
                         <Button.Effect>
                             <DropShadowEffect Color="Black" ShadowDepth="5" Direction="-50" BlurRadius="20"/>
                         </Button.Effect>
