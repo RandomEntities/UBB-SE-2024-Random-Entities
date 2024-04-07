@@ -25,10 +25,10 @@
 
     <Grid Height="550" Width="900">
         <Grid.Background>
-            <ImageBrush ImageSource="/market_background.png" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="/Assets/Sprites/market_background.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <Image HorizontalAlignment="Left" Height="450" Margin="25,70,0,0" VerticalAlignment="Top" Width="380" Source="/Assets/Sprites/inventory_icon.jpg" Stretch="Fill"/>
-        <Image HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="900" Source="/bar_icon.png" Stretch="Fill" StretchDirection="UpOnly"/>
+        <Image HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="900" Source="/Assets/Sprites/bar_icon.png" Stretch="Fill" StretchDirection="UpOnly"/>
         <Button x:Name="Back_Button" Content="Back" HorizontalAlignment="Left" Margin="700,0,0,0" VerticalAlignment="Top" Height="60" Width="200" FontSize="25" FontWeight="Bold" Foreground="White" VerticalContentAlignment="Center" Padding="0,0,0,0">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.png"/>
@@ -106,7 +106,7 @@
                     </Border.Background>
                     <Button BorderThickness="0,0,0,0" BorderBrush="{x:Null}" >
                         <Button.Background>
-                            <ImageBrush ImageSource="/checkmark.png"/>
+                            <ImageBrush ImageSource="/Assets/Sprites/checkmark.png"/>
                         </Button.Background>
                     </Button>
                 </Border>
