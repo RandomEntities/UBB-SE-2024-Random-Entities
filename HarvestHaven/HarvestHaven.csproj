@@ -9,12 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="bar_icon.png" />
-    <None Remove="checkmark.png" />
-    <None Remove="gray_bar_icon.png" />
-    <None Remove="inventory_icon.jpg" />
-    <None Remove="market_background.png" />
-    <None Remove="market_background_locked.png" />
+    <None Remove="Assets\Sprites\farm_background.png" />
+    <None Remove="Assets\Sprites\sunglasses_face_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,15 +46,10 @@
     <Resource Include="Assets\Sprites\shop.PNG" />
     <Resource Include="Assets\Sprites\shop_icon.png" />
     <Resource Include="Assets\Sprites\start_background.jpg" />
+    <Resource Include="Assets\Sprites\sunglasses_face_icon.png" />
     <Resource Include="Assets\Sprites\trade_hall_icon.png" />
     <Resource Include="Assets\Sprites\water_icon.png" />
     <Resource Include="Assets\Sprites\wooden_sign_icon.png" />
-    <Resource Include="bar_icon.png" />
-    <Resource Include="checkmark.png" />
-    <Resource Include="gray_bar_icon.png" />
-    <Resource Include="inventory_icon.jpg" />
-    <Resource Include="market_background.png" />
-    <Resource Include="market_background_locked.png" />
   </ItemGroup>
 
 </Project>
