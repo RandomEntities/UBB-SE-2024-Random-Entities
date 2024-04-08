@@ -17,9 +17,9 @@ namespace HarvestHaven.Profile_Gui
     /// <summary>
     /// Interaction logic for LeaderBoard.xaml
     /// </summary>
-    public partial class LeaderBoard : Window
+    public partial class Template : Window
     {
-        public LeaderBoard()
+        public Template()
         {
             InitializeComponent();
         }

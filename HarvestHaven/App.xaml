@@ -1,9 +1,9 @@
 ﻿<Application x:Class="HarvestHaven.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:HarvestHaven"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Profile Gui/Leaderboard.xaml">
     <Application.Resources>
          
     </Application.Resources>
 </Application>
+    

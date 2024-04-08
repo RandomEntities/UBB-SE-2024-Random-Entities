@@ -8,4 +8,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Profile Gui\Pictures\Button.PNG" />
+    <None Remove="Profile Gui\Pictures\Capture.PNG" />
+    <None Remove="Profile Gui\Pictures\coin.PNG" />
+    <None Remove="Profile Gui\Pictures\face.PNG" />
+    <None Remove="Profile Gui\Pictures\Row.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Profile Gui\Pictures\Button.PNG" />
+    <Resource Include="Profile Gui\Pictures\Capture.PNG" />
+    <Resource Include="Profile Gui\Pictures\Coin.PNG" />
+    <Resource Include="Profile Gui\Pictures\Face.PNG" />
+    <Resource Include="Profile Gui\Pictures\Row.png" />
+  </ItemGroup>
+
 </Project>
