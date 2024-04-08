@@ -79,5 +79,17 @@
         <Image HorizontalAlignment="Left" Height="55" Margin="412,76,0,0" VerticalAlignment="Top" Width="46" Source="/Assets/Sprites/Items/tomato.png" Stretch="Fill"/>
         <Image HorizontalAlignment="Left" Height="50" Margin="328,81,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Sprites/Items/wheat.png"/>
         <Image HorizontalAlignment="Left" Height="50" Margin="235,267,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Sprites/Items/wool.png"/>
+        <Label x:Name="carrotLabel" Content="0" HorizontalAlignment="Left" Margin="155,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="cornLabel" Content="0" HorizontalAlignment="Left" Margin="244,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="wheatLabel" Content="0" HorizontalAlignment="Left" Margin="332,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="tomatoLabel" Content="0" HorizontalAlignment="Left" Margin="419,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.589,0.525"/>
+        <Label x:Name="chickenLabel" Content="0" HorizontalAlignment="Left" Margin="509,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.513,0.462"/>
+        <Label x:Name="sheepLabel" Content="0" HorizontalAlignment="Left" Margin="600,165,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.513,0.462"/>
+        <Label x:Name="chickenEggLabel" Content="0" HorizontalAlignment="Left" Margin="155,355,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="woolLabel" Content="0" HorizontalAlignment="Left" Margin="244,355,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="milkLabel" Content="0" HorizontalAlignment="Left" Margin="332,355,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="duckEggLabel" Content="0" HorizontalAlignment="Left" Margin="419,355,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="cowLabel" Content="0" HorizontalAlignment="Left" Margin="509,355,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
+        <Label x:Name="duckLabel" Content="0" HorizontalAlignment="Left" Margin="600,355,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" RenderTransformOrigin="0.462,0.43"/>
     </Grid>
 </Window>
