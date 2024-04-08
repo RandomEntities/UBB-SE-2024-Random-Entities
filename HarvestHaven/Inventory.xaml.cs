@@ -15,13 +15,25 @@ using System.Windows.Shapes;
 namespace HarvestHaven
 {
     /// <summary>
-    /// Interaction logic for BuyCropAnimalGUI.xaml
+    /// Interaction logic for Inventory.xaml
     /// </summary>
-    public partial class BuyCropAnimalGUI : Window
+    public partial class Inventory : Window
     {
-        public BuyCropAnimalGUI()
+        private Farm farmScreen;
+
+        public Inventory(Farm farmScreen)
         {
+            this.farmScreen = farmScreen;
             InitializeComponent();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            farmScreen.Top = this.Top;
+            farmScreen.Left = this.Left;
+
+            farmScreen.Show();
+            this.Close();
         }
     }
 }
