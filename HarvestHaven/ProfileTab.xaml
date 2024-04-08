@@ -24,6 +24,29 @@
     </Window.Resources>
 
     <Grid Height="450" Width="800">
+        <Image Source="/Profile Gui/Pictures/Capture.PNG" Stretch="Fill"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="10,379,0,0" VerticalAlignment="Top" 
+            RenderTransformOrigin="5.92,0.446" Width="223" Height="61" FontFamily="./Profile Gui/Font Families/Iceland-Regular.ttf" 
+            FontSize="44" Foreground="White" Cursor="Hand">
+            <Button.Background>
+                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button Margin="192,120,468,268" Width="140" Content="Achievements" FontSize="15" Foreground="White">
+            <Button.Background>
+                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button Margin="332,120,328,268" Width="140" Content="Leaderboard" FontSize="15" Foreground="White">
+            <Button.Background>
+                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button Margin="472,120,188,268" Width="140" Content="Comments" FontSize="15" Foreground="White">
+            <Button.Background>
+                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>

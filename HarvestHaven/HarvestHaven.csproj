@@ -9,19 +9,98 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Profile Gui\Pictures\Button.PNG" />
-    <None Remove="Profile Gui\Pictures\Capture.PNG" />
-    <None Remove="Profile Gui\Pictures\coin.PNG" />
-    <None Remove="Profile Gui\Pictures\face.PNG" />
-    <None Remove="Profile Gui\Pictures\Row.png" />
+    <Compile Remove="Profile Gui\**" />
+    <Compile Remove="Repository\Repositories\**" />
+    <EmbeddedResource Remove="Profile Gui\**" />
+    <EmbeddedResource Remove="Repository\Repositories\**" />
+    <None Remove="Profile Gui\**" />
+    <None Remove="Repository\Repositories\**" />
+    <Page Remove="Profile Gui\**" />
+    <Page Remove="Repository\Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Profile Gui\Pictures\Button.PNG" />
-    <Resource Include="Profile Gui\Pictures\Capture.PNG" />
-    <Resource Include="Profile Gui\Pictures\Coin.PNG" />
-    <Resource Include="Profile Gui\Pictures\Face.PNG" />
-    <Resource Include="Profile Gui\Pictures\Row.png" />
+    <Compile Remove="Template.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Sprites\backpack_icon.png" />
+    <None Remove="Assets\Sprites\bar_icon.png" />
+    <None Remove="Assets\Sprites\button_icon.jpg" />
+    <None Remove="Assets\Sprites\buy_background.jpg" />
+    <None Remove="Assets\Sprites\checkmark.png" />
+    <None Remove="Assets\Sprites\coin_icon.png" />
+    <None Remove="Assets\Sprites\dirt_icon.png" />
+    <None Remove="Assets\Sprites\farm_background.png" />
+    <None Remove="Assets\Sprites\forest_background.jpg" />
+    <None Remove="Assets\Sprites\gray_bar_icon.png" />
+    <None Remove="Assets\Sprites\inventory_icon.jpg" />
+    <None Remove="Assets\Sprites\Items\carrot.png" />
+    <None Remove="Assets\Sprites\Items\chicken-egg.png" />
+    <None Remove="Assets\Sprites\Items\chicken.png" />
+    <None Remove="Assets\Sprites\Items\corn.png" />
+    <None Remove="Assets\Sprites\Items\cow.png" />
+    <None Remove="Assets\Sprites\Items\duck-egg.png" />
+    <None Remove="Assets\Sprites\Items\duck.png" />
+    <None Remove="Assets\Sprites\Items\milk.png" />
+    <None Remove="Assets\Sprites\Items\sheep.png" />
+    <None Remove="Assets\Sprites\Items\tomato.png" />
+    <None Remove="Assets\Sprites\Items\wheat.png" />
+    <None Remove="Assets\Sprites\Items\wool.png" />
+    <None Remove="Assets\Sprites\Light_bar_icon.png" />
+    <None Remove="Assets\Sprites\market_background.png" />
+    <None Remove="Assets\Sprites\market_background_locked.png" />
+    <None Remove="Assets\Sprites\profile_background.PNG" />
+    <None Remove="Assets\Sprites\red X.png" />
+    <None Remove="Assets\Sprites\shop.PNG" />
+    <None Remove="Assets\Sprites\shop_icon.png" />
+    <None Remove="Assets\Sprites\start_background.jpg" />
+    <None Remove="Assets\Sprites\sunglasses_face_icon.png" />
+    <None Remove="Assets\Sprites\trade_hall_icon.png" />
+    <None Remove="Assets\Sprites\water_icon.png" />
+    <None Remove="Assets\Sprites\wooden_sign_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Template.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\backpack_icon.png" />
+    <Resource Include="Assets\Sprites\bar_icon.png" />
+    <Resource Include="Assets\Sprites\button_icon.jpg" />
+    <Resource Include="Assets\Sprites\buy_background.jpg" />
+    <Resource Include="Assets\Sprites\checkmark.png" />
+    <Resource Include="Assets\Sprites\coin_icon.png" />
+    <Resource Include="Assets\Sprites\dirt_icon.png" />
+    <Resource Include="Assets\Sprites\farm_background.png" />
+    <Resource Include="Assets\Sprites\forest_background.jpg" />
+    <Resource Include="Assets\Sprites\gray_bar_icon.png" />
+    <Resource Include="Assets\Sprites\inventory_icon.jpg" />
+    <Resource Include="Assets\Sprites\Items\carrot.png" />
+    <Resource Include="Assets\Sprites\Items\chicken-egg.png" />
+    <Resource Include="Assets\Sprites\Items\chicken.png" />
+    <Resource Include="Assets\Sprites\Items\corn.png" />
+    <Resource Include="Assets\Sprites\Items\cow.png" />
+    <Resource Include="Assets\Sprites\Items\duck-egg.png" />
+    <Resource Include="Assets\Sprites\Items\duck.png" />
+    <Resource Include="Assets\Sprites\Items\milk.png" />
+    <Resource Include="Assets\Sprites\Items\sheep.png" />
+    <Resource Include="Assets\Sprites\Items\tomato.png" />
+    <Resource Include="Assets\Sprites\Items\wheat.png" />
+    <Resource Include="Assets\Sprites\Items\wool.png" />
+    <Resource Include="Assets\Sprites\Light_bar_icon.png" />
+    <Resource Include="Assets\Sprites\market_background.png" />
+    <Resource Include="Assets\Sprites\market_background_locked.png" />
+    <Resource Include="Assets\Sprites\profile_background.PNG" />
+    <Resource Include="Assets\Sprites\red X.png" />
+    <Resource Include="Assets\Sprites\shop.PNG" />
+    <Resource Include="Assets\Sprites\shop_icon.png" />
+    <Resource Include="Assets\Sprites\start_background.jpg" />
+    <Resource Include="Assets\Sprites\sunglasses_face_icon.png" />
+    <Resource Include="Assets\Sprites\trade_hall_icon.png" />
+    <Resource Include="Assets\Sprites\water_icon.png" />
+    <Resource Include="Assets\Sprites\wooden_sign_icon.png" />
   </ItemGroup>
 
 </Project>

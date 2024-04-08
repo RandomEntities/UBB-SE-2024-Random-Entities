@@ -11,13 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HarvestHaven.Profile_Gui.Model;
 
-namespace HarvestHaven.Profile_Gui
+namespace HarvestHaven
 {
     /// <summary>
     /// Interaction logic for Leaderboard.xaml
     /// </summary>
+    /// 
+    public class LeaderboardItem(int Id, string UserName, int NumberOfCoins)
+    {
+        public int Id { get; set; } = Id;
+        public string UserName { get; set; } = UserName;
+        public int NumberOfCoins { get; set; } = NumberOfCoins;
+    }
     public partial class Leaderboard : Window
     {
         public List<LeaderboardItem> Items = new List<LeaderboardItem>();
