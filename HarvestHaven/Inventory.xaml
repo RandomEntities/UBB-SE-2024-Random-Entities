@@ -37,8 +37,8 @@
             </ImageBrush>
         </Grid.Background>
         <Image HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="800" Source="/Assets/Sprites/bar_icon.png" Stretch="Fill"/>
-        <Label Content="Inventory" HorizontalAlignment="Left" Margin="34,2,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold"/>
-        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Top" Height="54" Width="199" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold">
+        <Label x:Name="InventoryLabel" Content="Inventory" HorizontalAlignment="Left" Margin="34,2,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold"/>
+        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Top" Height="54" Width="199" Foreground="White" FontSize="36" FontFamily="Courier New" FontWeight="Bold" Click="BackButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>

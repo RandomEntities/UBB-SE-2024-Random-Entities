@@ -19,9 +19,21 @@ namespace HarvestHaven
     /// </summary>
     public partial class BuyMarket : Window
     {
-        public BuyMarket()
+        private Farm farmScreen;
+
+        public BuyMarket(Farm farmScreen)
         {
+            this.farmScreen = farmScreen;
             InitializeComponent();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            farmScreen.Top = this.Top;
+            farmScreen.Left = this.Left;
+
+            farmScreen.Show();
+            this.Close();
         }
     }
 }

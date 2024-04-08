@@ -23,7 +23,67 @@
         </Style>
     </Window.Resources>
 
-    <Grid Height="450" Width="800">
-
-    </Grid>
+    <StackPanel Height="450" Width="800" Orientation="Vertical">
+        <StackPanel.Background>
+            <ImageBrush ImageSource="/Assets/Sprites/start_background.jpg"/>
+        </StackPanel.Background>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label x:Name="TitleLabel" Content="Harvest Haven" Height="145" FontSize="55" FontFamily="Ravie" FontStyle="Normal" Foreground="#FFD4D62A" Margin="0,30,0,0" FontWeight="Heavy">
+                <Label.Effect>
+                    <DropShadowEffect Color="Black" ShadowDepth="4" Direction="0" BlurRadius="5"/>
+                </Label.Effect>
+                <Label.BorderBrush>
+                    <SolidColorBrush Color="Black"/>
+                </Label.BorderBrush>
+            </Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Label x:Name="GreetingLabel" Content="Welcome, Player Name" FontSize="30" Foreground="#FFDCDE00" FontWeight="Bold" Margin="0,60,0,0" HorizontalAlignment="Center">
+                <Label.Effect>
+                    <DropShadowEffect Color="Black" ShadowDepth="1" Direction="0" BlurRadius="2"/>
+                </Label.Effect>
+                <Label.BorderBrush>
+                    <SolidColorBrush Color="Black"/>
+                </Label.BorderBrush>
+            </Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Grid Height="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,150,0">
+                    <Button x:Name="PlayButton"  Content="Play" Height="50" Width="150" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Click="PlayButton_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" ShadowDepth="5" Direction="-50" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.Background>
+                            <RadialGradientBrush 
+      GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+      RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="Yellow" Offset="0" />
+                                <GradientStop Color="Black" Offset="2.9"/>
+                            </RadialGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="150,0,0,0">
+                    <Button x:Name="ExitButton"  Content="Exit" Height="50" Width="150" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Click="ExitButton_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" ShadowDepth="5" Direction="-50" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.Background>
+                            <RadialGradientBrush 
+GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="Yellow" Offset="0" />
+                                <GradientStop Color="Black" Offset="2.9"/>
+                            </RadialGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
 </Window>

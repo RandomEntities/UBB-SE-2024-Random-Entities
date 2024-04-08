@@ -55,7 +55,7 @@
         <Label Content="Shop" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36"/>
         <Label x:Name="PriceLabel" Content="150" HorizontalAlignment="Left" Margin="493,8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <Image HorizontalAlignment="Left" Height="48" Margin="547,11,0,0" VerticalAlignment="Top" Width="39" Source="/Assets/Sprites/coin_icon.png"/>
-        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="612,0,0,0" VerticalAlignment="Top" Height="58" Width="188" Foreground="White" FontSize="24">
+        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="612,0,0,0" VerticalAlignment="Top" Height="58" Width="188" Foreground="White" FontSize="24" Click="BackButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>

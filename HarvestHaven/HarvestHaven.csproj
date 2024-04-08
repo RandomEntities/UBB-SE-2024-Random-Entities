@@ -9,14 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Sprites\checkmark.png" />
+    <None Remove="Assets\Sprites\farm_background.png" />
+    <None Remove="Assets\Sprites\gray_bar_icon.png" />
+    <None Remove="Assets\Sprites\market_background_locked.png" />
+    <None Remove="Assets\Sprites\sunglasses_face_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Sprites\backpack_icon.png" />
     <Resource Include="Assets\Sprites\bar_icon.png" />
     <Resource Include="Assets\Sprites\button_icon.jpg" />
     <Resource Include="Assets\Sprites\buy_background.jpg" />
+    <Resource Include="Assets\Sprites\checkmark.png" />
     <Resource Include="Assets\Sprites\coin_icon.png" />
     <Resource Include="Assets\Sprites\dirt_icon.png" />
     <Resource Include="Assets\Sprites\farm_background.png" />
     <Resource Include="Assets\Sprites\forest_background.jpg" />
+    <Resource Include="Assets\Sprites\gray_bar_icon.png" />
     <Resource Include="Assets\Sprites\inventory_icon.jpg" />
     <Resource Include="Assets\Sprites\Items\carrot.png" />
     <Resource Include="Assets\Sprites\Items\chicken-egg.png" />
@@ -32,11 +46,13 @@
     <Resource Include="Assets\Sprites\Items\wool.png" />
     <Resource Include="Assets\Sprites\light_bar_icon.png" />
     <Resource Include="Assets\Sprites\market_background.png" />
+    <Resource Include="Assets\Sprites\market_background_locked.png" />
     <Resource Include="Assets\Sprites\profile_background.PNG" />
     <Resource Include="Assets\Sprites\red X.png" />
     <Resource Include="Assets\Sprites\shop.PNG" />
     <Resource Include="Assets\Sprites\shop_icon.png" />
     <Resource Include="Assets\Sprites\start_background.jpg" />
+    <Resource Include="Assets\Sprites\sunglasses_face_icon.png" />
     <Resource Include="Assets\Sprites\trade_hall_icon.png" />
     <Resource Include="Assets\Sprites\water_icon.png" />
     <Resource Include="Assets\Sprites\wooden_sign_icon.png" />
