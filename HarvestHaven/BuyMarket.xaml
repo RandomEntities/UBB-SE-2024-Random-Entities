@@ -53,7 +53,7 @@
         <Label x:Name="DuckPriceLabel" Content="25" HorizontalAlignment="Left" Margin="562,320,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Image HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="800" Source="/Assets/Sprites/bar_icon.PNG" Stretch="Fill"/>
         <Label Content="Buy seed or animal" HorizontalAlignment="Left" Margin="29,-5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="34"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Top" Height="54" Width="199" Foreground="White" FontSize="24">
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="601,0,0,0" VerticalAlignment="Top" Height="54" Width="199" Foreground="White" FontSize="24" Click="CancelButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>

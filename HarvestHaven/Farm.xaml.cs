@@ -117,7 +117,7 @@ namespace HarvestHaven
             this.buyButton = newButton;
         }
 
-        private void DestroyButton(Button button)
+        private void DestroyButton()
         {
             if (buyButton != null)
             {
@@ -128,6 +128,8 @@ namespace HarvestHaven
 
         private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
         {
+            DestroyButton();
+
             BuyMarket market = new BuyMarket(this);
 
             market.Top = this.Top;
@@ -140,7 +142,7 @@ namespace HarvestHaven
 
         private void Farm_Click(object sender, RoutedEventArgs e)
         {
-            DestroyButton((Button)sender);
+            DestroyButton();
             CreateBuyButton((Button)sender);
         }
 
@@ -153,7 +155,7 @@ namespace HarvestHaven
                 return;
             }
 
-            DestroyButton((Button)sender);
+            DestroyButton();
         }
     }
 }
