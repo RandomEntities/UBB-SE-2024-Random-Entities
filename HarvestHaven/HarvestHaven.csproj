@@ -10,13 +10,9 @@
 
   <ItemGroup>
     <Compile Remove="Profile Gui\**" />
-    <Compile Remove="Repository\Repositories\**" />
     <EmbeddedResource Remove="Profile Gui\**" />
-    <EmbeddedResource Remove="Repository\Repositories\**" />
     <None Remove="Profile Gui\**" />
-    <None Remove="Repository\Repositories\**" />
     <Page Remove="Profile Gui\**" />
-    <Page Remove="Repository\Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,7 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Template.xaml" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>
