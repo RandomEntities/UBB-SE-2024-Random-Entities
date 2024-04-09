@@ -12,36 +12,7 @@ namespace HarvestHaven.Repository.Repositories
             this._connectionString = connectionString;
         }
 
-        public async Task InitializeAsync()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                // Check if the Users table exists
-                string checkTableQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users'";
-                using (SqlCommand command = new SqlCommand(checkTableQuery, connection))
-                {
-                    int tableCount = (int)await command.ExecuteScalarAsync();
-                    if (tableCount == 0)
-                    {
-                        // Create the Users table
-                        string createTableQuery = @"
-                            CREATE TABLE Users (
-                                Id UNIQUEIDENTIFIER PRIMARY KEY,
-                                Username NVARCHAR(50) NOT NULL,
-                                Password NVARCHAR(50) NOT NULL,
-                                Coins INT NOT NULL,
-                                TradeHallUnlockTime DATETIME NOT NULL
-                            )";
-                        using (SqlCommand createTableCommand = new SqlCommand(createTableQuery, connection))
-                        {
-                            await createTableCommand.ExecuteNonQueryAsync();
-                        }
-                    }
-                }
-            }
-        }
+        #region CRUD
 
         public async Task AddUserAsync(User user)
         {
@@ -59,6 +30,43 @@ namespace HarvestHaven.Repository.Repositories
                     await command.ExecuteNonQueryAsync();
                 }
             }
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            // Initialize the user variable
+            User? user = null;
+
+            // Create the SQL connection and release the resources after use
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                // Create the SQL command to select the user by username
+                string query = "SELECT * FROM Users WHERE Username = @Username";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    // Execute the command and read the result
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        // Check if there is a user with the given username
+                        if (await reader.ReadAsync())
+                        {
+                            // If a user is found, populate the user object
+                            user = new User
+                            {
+                                Id = (Guid)reader["Id"],
+                                Username = (string)reader["Username"],
+                                Password = (string)reader["Password"],
+                                Coins = (int)reader["Coins"],
+                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"]
+                            };
+                        }
+                    }
+                }
+            }
+            // Return the user (or null if not found).
+            return user;
         }
 
         public async Task<List<User>> GetAllUsersAsync()
@@ -120,7 +128,42 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        private async Task TestUserRepoAsync()
+        #endregion
+
+        #region Helper Functions
+
+        private async Task InitializeAsync()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                // Check if the Users table exists.
+                string checkTableQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users'";
+                using (SqlCommand command = new SqlCommand(checkTableQuery, connection))
+                {
+                    int tableCount = (int)await command.ExecuteScalarAsync();
+                    if (tableCount == 0)
+                    {
+                        // Create the Users table.
+                        string createTableQuery = @"
+                            CREATE TABLE Users (
+                                Id UNIQUEIDENTIFIER PRIMARY KEY,
+                                Username NVARCHAR(50) NOT NULL,
+                                Password NVARCHAR(50) NOT NULL,
+                                Coins INT NOT NULL,
+                                TradeHallUnlockTime DATETIME NOT NULL
+                            )";
+                        using (SqlCommand createTableCommand = new SqlCommand(createTableQuery, connection))
+                        {
+                            await createTableCommand.ExecuteNonQueryAsync();
+                        }
+                    }
+                }
+            }
+        }
+
+        private async Task TestAsync()
         {
             try
             {
@@ -200,5 +243,7 @@ namespace HarvestHaven.Repository.Repositories
                 Console.WriteLine($"Error occurred: {ex.Message}");
             }
         }
+
+        #endregion
     }
 }
