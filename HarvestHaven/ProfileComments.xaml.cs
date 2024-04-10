@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace HarvestHaven
 {
-    public class Comment(string description)
+    public class MockComment(string description)
     {
         public string Description { get; set;} = description;
     }
@@ -23,17 +23,17 @@ namespace HarvestHaven
     /// </summary>
     public partial class ProfileComments : Window
     {
-        public List<Comment> comments = new List<Comment>();
+        public List<MockComment> comments = new List<MockComment>();
         public ProfileComments()
         {
-            comments.Add(new Comment("Nice farm bro! Keep up the good work!"));
-            comments.Add(new Comment("Nice farm bro! Keep up the good work!"));
-            comments.Add(new Comment("Nice farm bro! Keep up the good work!"));
-            comments.Add(new Comment("Wow, so many coins! Aren't you cheating?"));
-            comments.Add(new Comment("Nice farm bro! Keep up the good work!"));
-            comments.Add(new Comment("Wow, so many coins! Aren't you cheating?"));
-            comments.Add(new Comment("Nice farm bro! Keep up the good work!"));
-            comments.Add(new Comment("Nice farm bro! Keep up the good work!"));
+            comments.Add(new MockComment("Nice farm bro! Keep up the good work!"));
+            comments.Add(new MockComment("Nice farm bro! Keep up the good work!"));
+            comments.Add(new MockComment("Nice farm bro! Keep up the good work!"));
+            comments.Add(new MockComment("Wow, so many coins! Aren't you cheating?"));
+            comments.Add(new MockComment("Nice farm bro! Keep up the good work!"));
+            comments.Add(new MockComment("Wow, so many coins! Aren't you cheating?"));
+            comments.Add(new MockComment("Nice farm bro! Keep up the good work!"));
+            comments.Add(new MockComment("Nice farm bro! Keep up the good work!"));
             this.DataContext = comments;
             InitializeComponent();
         }
