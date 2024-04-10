@@ -3,7 +3,7 @@
     public class FarmCell
     {
         public Guid Id { get; set; }
-        public Guid FarmId { get; set; } // Farm.
+        public Guid UserId { get; set; } // User.
         public int Row { get; set; }
         public int Column { get; set; }
         public Guid ItemId {  get; set; } // Item.

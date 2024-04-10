@@ -21,13 +21,13 @@ namespace HarvestHaven.Repository.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("INSERT INTO Users (Id, Username, Password, Coins, TradeHallUnlockTime) VALUES (@Id, @Username, @Password, @Coins, @TradeHallUnlockTime)", connection))
+                using (SqlCommand command = new SqlCommand("INSERT INTO Users (Id, Username, Coins, TradeHallUnlockTime, LastTimeReceivedWater) VALUES (@Id, @Username, @Coins, @TradeHallUnlockTime, @LastTimeReceivedWater)", connection))
                 {
                     command.Parameters.AddWithValue("@Id", user.Id);
                     command.Parameters.AddWithValue("@Username", user.Username);
-                    command.Parameters.AddWithValue("@Password", user.Password);
                     command.Parameters.AddWithValue("@Coins", user.Coins);
                     command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime);
+                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -58,9 +58,9 @@ namespace HarvestHaven.Repository.Repositories
                             {
                                 Id = (Guid)reader["Id"],
                                 Username = (string)reader["Username"],
-                                Password = (string)reader["Password"],
                                 Coins = (int)reader["Coins"],
-                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"]
+                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"],
+                                LastTimeReceivedWater = (DateTime)reader["LastTimeReceivedWater"]
                             };
                         }
                     }
@@ -86,9 +86,9 @@ namespace HarvestHaven.Repository.Repositories
                             {
                                 Id = (Guid)reader["Id"],
                                 Username = (string)reader["Username"],
-                                Password = (string)reader["Password"],
                                 Coins = (int)reader["Coins"],
-                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"]
+                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"],
+                                LastTimeReceivedWater = (DateTime)reader["LastTimeReceivedWater"]
                             });
                         }
                     }
@@ -103,13 +103,13 @@ namespace HarvestHaven.Repository.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("UPDATE Users SET Username = @Username, Password = @Password, Coins = @Coins, TradeHallUnlockTime = @TradeHallUnlockTime WHERE Id = @Id", connection))
+                using (SqlCommand command = new SqlCommand("UPDATE Users SET Username = @Username, Coins = @Coins, TradeHallUnlockTime = @TradeHallUnlockTime, LastTimeReceivedWater = @LastTimeReceivedWater WHERE Id = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@Id", user.Id);
                     command.Parameters.AddWithValue("@Username", user.Username);
-                    command.Parameters.AddWithValue("@Password", user.Password);
                     command.Parameters.AddWithValue("@Coins", user.Coins);
                     command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime);
+                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -132,38 +132,6 @@ namespace HarvestHaven.Repository.Repositories
         #endregion
 
         #region Helper Functions
-
-        private async Task InitializeAsync()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                // Check if the Users table exists.
-                string checkTableQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users'";
-                using (SqlCommand command = new SqlCommand(checkTableQuery, connection))
-                {
-                    int tableCount = (int)await command.ExecuteScalarAsync();
-                    if (tableCount == 0)
-                    {
-                        // Create the Users table.
-                        string createTableQuery = @"
-                            CREATE TABLE Users (
-                                Id UNIQUEIDENTIFIER PRIMARY KEY,
-                                Username NVARCHAR(50) NOT NULL,
-                                Password NVARCHAR(50) NOT NULL,
-                                Coins INT NOT NULL,
-                                TradeHallUnlockTime DATETIME NOT NULL
-                            )";
-                        using (SqlCommand createTableCommand = new SqlCommand(createTableQuery, connection))
-                        {
-                            await createTableCommand.ExecuteNonQueryAsync();
-                        }
-                    }
-                }
-            }
-        }
-
         public async Task TestAsync()
         {
             try
@@ -190,9 +158,9 @@ namespace HarvestHaven.Repository.Repositories
                 {
                     Id = Guid.NewGuid(),
                     Username = "NewUser",
-                    Password = "password",
                     Coins = 100,
-                    TradeHallUnlockTime = DateTime.Now
+                    TradeHallUnlockTime = DateTime.Now,
+                    LastTimeReceivedWater = DateTime.Now
                 };
                 await this.AddUserAsync(newUser);
                 Console.WriteLine($"New user added: {newUser.Username}");
