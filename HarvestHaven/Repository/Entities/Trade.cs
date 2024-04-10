@@ -9,5 +9,6 @@
         public Guid RequestedResourceId { get; set; } // User.
         public int RequestedResourceQuantity { get; set; }
         public DateTime CreatedTime { get; set; }
+        public bool IsCompleted { get; set;}
     }
 }

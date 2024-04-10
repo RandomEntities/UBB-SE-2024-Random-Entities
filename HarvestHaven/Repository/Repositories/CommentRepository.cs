@@ -13,31 +13,26 @@ namespace HarvestHaven.Repository.Repositories
             this._connectionString = DatabaseHelper.GetDatabaseFilePath();
         }
 
-        public async Task AddCommentForUserAsync(Guid userId, string message)
+        public async Task CreateCommentAsync(Comment comment)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
-                // Create the SQL command to insert a new comment.
                 string query = "INSERT INTO Comments (Id, UserId, Message, CreatedTime) VALUES (@Id, @UserId, @Message, @CreatedTime)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Set the parameters for the SQL command.
-                    command.Parameters.AddWithValue("@Id", Guid.NewGuid());
-                    command.Parameters.AddWithValue("@UserId", userId);
-                    command.Parameters.AddWithValue("@Message", message);
-                    command.Parameters.AddWithValue("@CreatedTime", DateTime.Now);
-
-                    // Execute the SQL command to insert the comment.
+                    command.Parameters.AddWithValue("@Id", comment.Id);
+                    command.Parameters.AddWithValue("@UserId", comment.UserId);
+                    command.Parameters.AddWithValue("@Message", comment.Message);
+                    command.Parameters.AddWithValue("@CreatedTime", comment.CreatedTime);
                     await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public async Task<List<Comment>> GetCommentsForUserAsync(Guid userId)
+        public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
-            List<Comment> comments = new List<Comment>();
+            List<Comment> userComments = new List<Comment>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -49,7 +44,7 @@ namespace HarvestHaven.Repository.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            comments.Add(new Comment
+                            userComments.Add(new Comment
                             {
                                 Id = (Guid)reader["Id"],
                                 UserId = (Guid)reader["UserId"],
@@ -60,7 +55,7 @@ namespace HarvestHaven.Repository.Repositories
                     }
                 }
             }
-            return comments;
+            return userComments;
         }
     }
 }
