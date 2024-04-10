@@ -56,7 +56,7 @@
         <Label Content="Get" HorizontalAlignment="Left" Margin="76,299,0,0" VerticalAlignment="Top" Height="48" Width="112" Foreground="White" FontWeight="Bold" FontSize="35" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="Give_TextBox" HorizontalAlignment="Left" Margin="178,190,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="44" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontSize="30" TextDecorations="Underline" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"/>
         <TextBox x:Name="Get_TextBox" HorizontalAlignment="Left" Margin="178,307,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="44" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontSize="30" TextDecorations="Underline" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"/>
-        <Button x:Name="Confirm_Cancel_Button" Content="Confirm" HorizontalAlignment="Left" Margin="126,405,0,0" VerticalAlignment="Top" Height="70" Width="174" Foreground="White" Padding="0,0,0,0" FontSize="20" FontWeight="Bold">
+        <Button x:Name="Confirm_Cancel_Button" Content="Confirm" HorizontalAlignment="Left" Margin="126,405,0,0" VerticalAlignment="Top" Height="70" Width="174" Foreground="White" Padding="0,0,0,0" FontSize="20" FontWeight="Bold" Click="Confirm_Cancel_Button_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
             </Button.Background>
@@ -69,48 +69,7 @@
         </Button>
         <Image HorizontalAlignment="Left" Height="450" Margin="489,70,0,0" VerticalAlignment="Top" Width="380" Source="/Assets/Sprites/inventory_icon.jpg" Stretch="Fill"/>
         <Label Content="All trades" HorizontalAlignment="Left" Margin="573,98,0,0" VerticalAlignment="Top" Height="48" Width="212" Foreground="White" FontWeight="Bold" FontSize="35" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="Trades_List" Margin="520,145,61,75" Background="{x:Null}" BorderBrush="{x:Null}" >
-            <StackPanel Height="70" Width="285" Orientation="Horizontal">
-                <Border Width="100" CornerRadius="20,20,20,20" BorderBrush="Black" BorderThickness="2,2,2,2" Height="60" Margin="7,0,0,0">
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFB5D755"/>
-                            <GradientStop Color="#FF5B7807" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Foreground="White" VerticalAlignment="Center" FontWeight="Bold" FontSize="15">Give</Label>
-                        <Label Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="15">15</Label>
-                        <Image Source="/Assets/Sprites/Items/corn.png" Width="30" Height="30"></Image>
-                    </StackPanel>
-                </Border>
-                <Border Width="100" CornerRadius="20,20,20,20" BorderBrush="Black" BorderThickness="2,2,2,2" Height="60" Margin="7,0,0,0">
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFD92222"/>
-                            <GradientStop Color="#FFFC7373" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Foreground="White" VerticalAlignment="Center" FontWeight="Bold" FontSize="15">Get</Label>
-                        <Label Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="15">3</Label>
-                        <Image Source="/Assets/Sprites/Items/sheep.png" Width="30" Height="30"></Image>
-                    </StackPanel>
-                </Border>
-                <Border Width="60" Margin="10,0,0,0" Height="60" BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="20,20,20,20">
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF589E12"/>
-                            <GradientStop Color="#FFEAF6C6" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Button BorderThickness="0,0,0,0" BorderBrush="{x:Null}" >
-                        <Button.Background>
-                            <ImageBrush ImageSource="/Assets/Sprites/checkmark.png"/>
-                        </Button.Background>
-                    </Button>
-                </Border>
-            </StackPanel>
-        </ListBox>
+        <ListBox x:Name="Trades_List" Margin="520,145,61,75" Background="{x:Null}" BorderBrush="{x:Null}" />
+
     </Grid>
 </Window>
