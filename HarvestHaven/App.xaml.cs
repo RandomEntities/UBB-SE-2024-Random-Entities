@@ -9,6 +9,10 @@ namespace HarvestHaven
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            // Entry point for the application.
+        }
     }
 
 }
