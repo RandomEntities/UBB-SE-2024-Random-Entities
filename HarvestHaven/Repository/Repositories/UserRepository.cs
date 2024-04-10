@@ -133,37 +133,6 @@ namespace HarvestHaven.Repository.Repositories
 
         #region Helper Functions
 
-        private async Task InitializeAsync()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                // Check if the Users table exists.
-                string checkTableQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users'";
-                using (SqlCommand command = new SqlCommand(checkTableQuery, connection))
-                {
-                    int tableCount = (int)await command.ExecuteScalarAsync();
-                    if (tableCount == 0)
-                    {
-                        // Create the Users table.
-                        string createTableQuery = @"
-                            CREATE TABLE Users (
-                                Id UNIQUEIDENTIFIER PRIMARY KEY,
-                                Username NVARCHAR(50) NOT NULL,
-                                Password NVARCHAR(50) NOT NULL,
-                                Coins INT NOT NULL,
-                                TradeHallUnlockTime DATETIME NOT NULL
-                            )";
-                        using (SqlCommand createTableCommand = new SqlCommand(createTableQuery, connection))
-                        {
-                            await createTableCommand.ExecuteNonQueryAsync();
-                        }
-                    }
-                }
-            }
-        }
-
         public async Task TestAsync()
         {
             try

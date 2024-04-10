@@ -1,6 +1,6 @@
 ﻿namespace HarvestHaven.Repository.Entities
 {
-    public class MerketSellResource
+    public class MarketSellResource
     {
         public Guid Id { get; set; }
         public Guid ResourceId { get; set; }
