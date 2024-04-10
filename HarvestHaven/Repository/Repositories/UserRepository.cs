@@ -1,4 +1,5 @@
 ﻿using HarvestHaven.Repository.Entities;
+using HarvestHaven.Utils;
 using Microsoft.Data.SqlClient;
 
 namespace HarvestHaven.Repository.Repositories
@@ -7,41 +8,12 @@ namespace HarvestHaven.Repository.Repositories
     {
         private readonly string _connectionString;
 
-        public UserRepository(string connectionString)
+        public UserRepository()
         {
-            this._connectionString = connectionString;
+            this._connectionString = DatabaseHelper.GetDatabaseFilePath();       
         }
 
-        public async Task InitializeAsync()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                // Check if the Users table exists
-                string checkTableQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users'";
-                using (SqlCommand command = new SqlCommand(checkTableQuery, connection))
-                {
-                    int tableCount = (int)await command.ExecuteScalarAsync();
-                    if (tableCount == 0)
-                    {
-                        // Create the Users table
-                        string createTableQuery = @"
-                            CREATE TABLE Users (
-                                Id UNIQUEIDENTIFIER PRIMARY KEY,
-                                Username NVARCHAR(50) NOT NULL,
-                                Password NVARCHAR(50) NOT NULL,
-                                Coins INT NOT NULL,
-                                TradeHallUnlockTime DATETIME NOT NULL
-                            )";
-                        using (SqlCommand createTableCommand = new SqlCommand(createTableQuery, connection))
-                        {
-                            await createTableCommand.ExecuteNonQueryAsync();
-                        }
-                    }
-                }
-            }
-        }
+        #region CRUD
 
         public async Task AddUserAsync(User user)
         {
@@ -59,6 +31,43 @@ namespace HarvestHaven.Repository.Repositories
                     await command.ExecuteNonQueryAsync();
                 }
             }
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            // Initialize the user variable
+            User? user = null;
+
+            // Create the SQL connection and release the resources after use
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                // Create the SQL command to select the user by username
+                string query = "SELECT * FROM Users WHERE Username = @Username";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    // Execute the command and read the result
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        // Check if there is a user with the given username
+                        if (await reader.ReadAsync())
+                        {
+                            // If a user is found, populate the user object
+                            user = new User
+                            {
+                                Id = (Guid)reader["Id"],
+                                Username = (string)reader["Username"],
+                                Password = (string)reader["Password"],
+                                Coins = (int)reader["Coins"],
+                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"]
+                            };
+                        }
+                    }
+                }
+            }
+            // Return the user (or null if not found).
+            return user;
         }
 
         public async Task<List<User>> GetAllUsersAsync()
@@ -120,15 +129,47 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        private async Task TestUserRepoAsync()
+        #endregion
+
+        #region Helper Functions
+
+        private async Task InitializeAsync()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                // Check if the Users table exists.
+                string checkTableQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users'";
+                using (SqlCommand command = new SqlCommand(checkTableQuery, connection))
+                {
+                    int tableCount = (int)await command.ExecuteScalarAsync();
+                    if (tableCount == 0)
+                    {
+                        // Create the Users table.
+                        string createTableQuery = @"
+                            CREATE TABLE Users (
+                                Id UNIQUEIDENTIFIER PRIMARY KEY,
+                                Username NVARCHAR(50) NOT NULL,
+                                Password NVARCHAR(50) NOT NULL,
+                                Coins INT NOT NULL,
+                                TradeHallUnlockTime DATETIME NOT NULL
+                            )";
+                        using (SqlCommand createTableCommand = new SqlCommand(createTableQuery, connection))
+                        {
+                            await createTableCommand.ExecuteNonQueryAsync();
+                        }
+                    }
+                }
+            }
+        }
+
+        public async Task TestAsync()
         {
             try
             {
-                // Create a new instance of the UserRepository
-                UserRepository userRepository = new UserRepository(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;Connect Timeout=30");
-
                 // Get all users asynchronously
-                List<User> users = await userRepository.GetAllUsersAsync();
+                List<User> users = await this.GetAllUsersAsync();
 
                 // Display the usernames
                 if (users != null && users.Any())
@@ -153,11 +194,11 @@ namespace HarvestHaven.Repository.Repositories
                     Coins = 100,
                     TradeHallUnlockTime = DateTime.Now
                 };
-                await userRepository.AddUserAsync(newUser);
+                await this.AddUserAsync(newUser);
                 Console.WriteLine($"New user added: {newUser.Username}");
 
                 // Get all users again
-                users = await userRepository.GetAllUsersAsync();
+                users = await this.GetAllUsersAsync();
                 if (users != null && users.Any())
                 {
                     Console.WriteLine("\nUpdated Users:");
@@ -173,15 +214,15 @@ namespace HarvestHaven.Repository.Repositories
 
                 // Update the newly added user
                 newUser.Coins += 50;
-                await userRepository.UpdateUserAsync(newUser);
+                await this.UpdateUserAsync(newUser);
                 Console.WriteLine($"\nUser {newUser.Username} updated. New coins: {newUser.Coins}");
 
                 // Delete the newly added user
-                await userRepository.DeleteUserByIdAsync(newUser.Id);
+                //await this.DeleteUserByIdAsync(newUser.Id);
                 Console.WriteLine($"\nUser {newUser.Username} deleted.");
 
                 // Get all users after deletion
-                users = await userRepository.GetAllUsersAsync();
+                users = await this.GetAllUsersAsync();
                 if (users != null && users.Any())
                 {
                     Console.WriteLine("\nUsers after deletion:");
@@ -200,5 +241,7 @@ namespace HarvestHaven.Repository.Repositories
                 Console.WriteLine($"Error occurred: {ex.Message}");
             }
         }
+
+        #endregion
     }
 }
