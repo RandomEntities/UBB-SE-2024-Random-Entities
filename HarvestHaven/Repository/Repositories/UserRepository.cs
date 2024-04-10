@@ -1,4 +1,5 @@
 ﻿using HarvestHaven.Repository.Entities;
+using HarvestHaven.Utils;
 using Microsoft.Data.SqlClient;
 
 namespace HarvestHaven.Repository.Repositories
@@ -7,9 +8,9 @@ namespace HarvestHaven.Repository.Repositories
     {
         private readonly string _connectionString;
 
-        public UserRepository(string connectionString)
+        public UserRepository()
         {
-            this._connectionString = connectionString;
+            this._connectionString = DatabaseHelper.GetDatabaseFilePath();       
         }
 
         #region CRUD
@@ -163,15 +164,12 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        private async Task TestAsync()
+        public async Task TestAsync()
         {
             try
             {
-                // Create a new instance of the UserRepository
-                UserRepository userRepository = new UserRepository(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;Connect Timeout=30");
-
                 // Get all users asynchronously
-                List<User> users = await userRepository.GetAllUsersAsync();
+                List<User> users = await this.GetAllUsersAsync();
 
                 // Display the usernames
                 if (users != null && users.Any())
@@ -196,11 +194,11 @@ namespace HarvestHaven.Repository.Repositories
                     Coins = 100,
                     TradeHallUnlockTime = DateTime.Now
                 };
-                await userRepository.AddUserAsync(newUser);
+                await this.AddUserAsync(newUser);
                 Console.WriteLine($"New user added: {newUser.Username}");
 
                 // Get all users again
-                users = await userRepository.GetAllUsersAsync();
+                users = await this.GetAllUsersAsync();
                 if (users != null && users.Any())
                 {
                     Console.WriteLine("\nUpdated Users:");
@@ -216,15 +214,15 @@ namespace HarvestHaven.Repository.Repositories
 
                 // Update the newly added user
                 newUser.Coins += 50;
-                await userRepository.UpdateUserAsync(newUser);
+                await this.UpdateUserAsync(newUser);
                 Console.WriteLine($"\nUser {newUser.Username} updated. New coins: {newUser.Coins}");
 
                 // Delete the newly added user
-                await userRepository.DeleteUserByIdAsync(newUser.Id);
+                //await this.DeleteUserByIdAsync(newUser.Id);
                 Console.WriteLine($"\nUser {newUser.Username} deleted.");
 
                 // Get all users after deletion
-                users = await userRepository.GetAllUsersAsync();
+                users = await this.GetAllUsersAsync();
                 if (users != null && users.Any())
                 {
                     Console.WriteLine("\nUsers after deletion:");
