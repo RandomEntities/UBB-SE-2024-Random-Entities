@@ -1,22 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using HarvestHaven.Repository.Entities;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class InventoryResourceRepository
+    public static class InventoryResourceRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public InventoryResourceRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<InventoryResource>> GetUserResourcesAsync(Guid userId)
+        public static async Task<List<InventoryResource>> GetUserResourcesAsync(Guid userId)
         {
             List<InventoryResource> userResources = new List<InventoryResource>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -44,7 +36,7 @@ namespace HarvestHaven.Repository.Repositories
             return userResources;
         }
 
-        public async Task AddUserResourceAsync(InventoryResource userResource)
+        public static async Task AddUserResourceAsync(InventoryResource userResource)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -61,7 +53,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task UpdateUserResourceAsync(InventoryResource userResource)
+        public static async Task UpdateUserResourceAsync(InventoryResource userResource)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -76,7 +68,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task DeleteUserResourceAsync(Guid userResourceId)
+        public static async Task DeleteUserResourceAsync(Guid userResourceId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

@@ -4,16 +4,11 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class ItemRepository
+    public static class ItemRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public ItemRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<Item>> GetAllItemsAsync()
+        public static async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -40,7 +35,7 @@ namespace HarvestHaven.Repository.Repositories
             return items;
         }
 
-        public async Task<Item> GetItemByIdAsync(Guid itemId)
+        public static async Task<Item> GetItemByIdAsync(Guid itemId)
         {
             Item item = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))

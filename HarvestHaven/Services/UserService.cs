@@ -3,30 +3,15 @@ using HarvestHaven.Repository.Repositories;
 
 namespace HarvestHaven.Services
 {
-    public class UserService
+    public static class UserService
     {
-        public static UserService Instance
+        public static async Task<User> GetUserByIdAsync(Guid userId)
         {
-            get
-            {
-                return _instance != null ? _instance : _instance = new UserService();
-            }
+            return await UserRepository.GetUserByIdAsync(userId);
         }
-        private static UserService? _instance;
-        private readonly UserRepository _userRepository;
-
-        public UserService()
+        public static async Task<List<User>> GetAllUsersAsync()
         {
-            _userRepository = new UserRepository();
-        }
-
-        public async Task<User> GetUserByIdAsync(Guid userId)
-        {
-            return await _userRepository.GetUserByIdAsync(userId);
-        }
-        public async Task<List<User>> GetAllUsersAsync()
-        {
-            return await _userRepository.GetAllUsersAsync();
+            return await UserRepository.GetAllUsersAsync();
         }
     }
 }

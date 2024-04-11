@@ -1,22 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using HarvestHaven.Repository.Entities;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class TradeRepository
+    public static class TradeRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public TradeRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<Trade>> GetAllTradesAsync()
+        public static async Task<List<Trade>> GetAllTradesAsync()
         {
             List<Trade> trades = new List<Trade>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -46,7 +38,7 @@ namespace HarvestHaven.Repository.Repositories
             return trades;
         }
 
-        public async Task<Trade> GetUserTradeAsync(Guid userId)
+        public static async Task<Trade> GetUserTradeAsync(Guid userId)
         {
             Trade userTrade = new Trade();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -78,7 +70,7 @@ namespace HarvestHaven.Repository.Repositories
             return userTrade;
         }
 
-        public async Task CreateTradeAsync(Trade trade)
+        public static async Task CreateTradeAsync(Trade trade)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -99,7 +91,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task UpdateTradeAsync(Trade trade)
+        public static async Task UpdateTradeAsync(Trade trade)
         {
             // Create the SQL connection and release the resources after use.
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -114,7 +106,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task DeleteTradeAsync(Guid tradeId)
+        public static async Task DeleteTradeAsync(Guid tradeId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
