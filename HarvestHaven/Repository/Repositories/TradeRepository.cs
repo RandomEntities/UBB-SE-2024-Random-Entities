@@ -21,16 +21,16 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             trades.Add(new Trade
-                            {
-                                Id = (Guid)reader["Id"],
-                                UserId = (Guid)reader["UserId"],
-                                GivenResourceId = (Guid)reader["GivenResourceId"],
-                                GivenResourceQuantity = (int)reader["GivenResourceQuantity"],
-                                RequestedResourceId = (Guid)reader["RequestedResourceId"],
-                                RequestedResourceQuantity = (int)reader["RequestedResourceQuantity"],
-                                CreatedTime = (DateTime)reader["CreatedTime"],
-                                IsCompleted = (bool)reader["IsCompleted"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                givenResourceId: (Guid)reader["GivenResourceId"],
+                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
+                                requestedResourceId: (Guid)reader["RequestedResourceId"],
+                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
+                                createdTime: (DateTime)reader["CreatedTime"],
+                                isCompleted: (bool)reader["IsCompleted"]
+                            ));
                         }
                     }
                 }
@@ -40,7 +40,7 @@ namespace HarvestHaven.Repository.Repositories
 
         public static async Task<Trade> GetUserTradeAsync(Guid userId)
         {
-            Trade userTrade = new Trade();
+            Trade userTrade = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -53,16 +53,16 @@ namespace HarvestHaven.Repository.Repositories
                         if (await reader.ReadAsync())
                         {
                             userTrade = new Trade
-                            {
-                                Id = (Guid)reader["Id"],
-                                UserId = (Guid)reader["UserId"],
-                                GivenResourceId = (Guid)reader["GivenResourceId"],
-                                GivenResourceQuantity = (int)reader["GivenResourceQuantity"],
-                                RequestedResourceId = (Guid)reader["RequestedResourceId"],
-                                RequestedResourceQuantity = (int)reader["RequestedResourceQuantity"],
-                                CreatedTime = (DateTime)reader["CreatedTime"],
-                                IsCompleted = (bool)reader["IsCompleted"]
-                            };
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                givenResourceId: (Guid)reader["GivenResourceId"],
+                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
+                                requestedResourceId: (Guid)reader["RequestedResourceId"],
+                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
+                                createdTime: (DateTime)reader["CreatedTime"],
+                                isCompleted: (bool)reader["IsCompleted"]
+                            );
                         }
                     }
                 }

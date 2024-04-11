@@ -20,13 +20,12 @@ namespace HarvestHaven.Repository.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            userAchievements.Add(new UserAchievement
-                            {
-                                Id = (Guid)reader["Id"],
-                                UserId = (Guid)reader["UserId"],
-                                AchievementId = (Guid)reader["AchievementId"],
-                                CreatedTime = (DateTime)reader["CreatedTime"]
-                            });
+                            userAchievements.Add(new UserAchievement(
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                achievementId: (Guid)reader["AchievementId"],
+                                createdTime: (DateTime)reader["CreatedTime"]
+                            ));
                         }
                     }
                 }

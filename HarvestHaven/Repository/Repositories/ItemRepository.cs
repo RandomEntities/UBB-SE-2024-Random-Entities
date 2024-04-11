@@ -21,13 +21,13 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             items.Add(new Item
-                            {
-                                Id = (Guid)reader["Id"],
-                                ItemType = (ItemType)reader["ItemType"],
-                                RequiredResourceId = (Guid)reader["RequiredResourceId"],
-                                InteractResourceId = (Guid)reader["InteractResourceId"],
-                                DestroyResourceId = reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                itemType: (ItemType)reader["ItemType"],
+                                requiredResourceId: (Guid)reader["RequiredResourceId"],
+                                interactResourceId: (Guid)reader["InteractResourceId"],
+                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
+                            ));
                         }
                     }
                 }
@@ -50,13 +50,13 @@ namespace HarvestHaven.Repository.Repositories
                         if (await reader.ReadAsync())
                         {
                             item = new Item
-                            {
-                                Id = (Guid)reader["Id"],
-                                ItemType = (ItemType)reader["ItemType"],
-                                RequiredResourceId = (Guid)reader["RequiredResourceId"],
-                                InteractResourceId = (Guid)reader["InteractResourceId"],
-                                DestroyResourceId = reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
-                            };
+                            (
+                                id: (Guid)reader["Id"],
+                                itemType: (ItemType)reader["ItemType"],
+                                requiredResourceId: (Guid)reader["RequiredResourceId"],
+                                interactResourceId: (Guid)reader["InteractResourceId"],
+                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
+                            );
                         }
                     }
                 }

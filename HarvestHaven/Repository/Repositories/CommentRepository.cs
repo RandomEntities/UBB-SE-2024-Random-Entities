@@ -40,12 +40,12 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             userComments.Add(new Comment
-                            {
-                                Id = (Guid)reader["Id"],
-                                UserId = (Guid)reader["UserId"],
-                                Message = (string)reader["Message"],
-                                CreatedTime = (DateTime)reader["CreatedTime"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                message: (string)reader["Message"],
+                                createdTime: (DateTime)reader["CreatedTime"]
+                            ));
                         }
                     }
                 }
