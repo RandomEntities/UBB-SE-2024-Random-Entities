@@ -4,16 +4,11 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class UserAchievementRepository
+    public static class UserAchievementRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public UserAchievementRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<UserAchievement>> GetAllUserAchievementsAsync()
+        public static async Task<List<UserAchievement>> GetAllUserAchievementsAsync()
         {
             List<UserAchievement> userAchievements = new List<UserAchievement>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -39,7 +34,7 @@ namespace HarvestHaven.Repository.Repositories
             return userAchievements;
         }
 
-        public async Task AddUserAchievementAsync(UserAchievement userAchievement)
+        public static async Task AddUserAchievementAsync(UserAchievement userAchievement)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

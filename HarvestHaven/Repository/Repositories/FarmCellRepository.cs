@@ -1,22 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using HarvestHaven.Repository.Entities;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class FarmCellRepository
+    public static class FarmCellRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public FarmCellRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<FarmCell>> GetFarmCellsByUserIdAsync(Guid userId)
+        public static async Task<List<FarmCell>> GetFarmCellsByUserIdAsync(Guid userId)
         {
             List<FarmCell> farmCells = new List<FarmCell>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -47,7 +39,7 @@ namespace HarvestHaven.Repository.Repositories
             return farmCells;
         }
 
-        public async Task AddFarmCellForUserAsync(FarmCell farmCell)
+        public static async Task AddFarmCellForUserAsync(FarmCell farmCell)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -67,7 +59,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task UpdateFarmCellForUserAsync(FarmCell farmCell)
+        public static async Task UpdateFarmCellForUserAsync(FarmCell farmCell)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -86,7 +78,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task DeleteFarmCellForUserAsync(Guid farmCellId)
+        public static async Task DeleteFarmCellForUserAsync(Guid farmCellId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

@@ -4,18 +4,13 @@ using Microsoft.Data.SqlClient;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class UserRepository
+    public static class UserRepository
     {
-        private readonly string _connectionString;
-
-        public UserRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();       
-        }
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
         #region CRUD
 
-        public async Task AddUserAsync(User user)
+        public static async Task AddUserAsync(User user)
         {
             // Create the sql connection and release the resources after use.
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -33,7 +28,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task<User> GetUserByIdAsync(Guid userId)
+        public static async Task<User> GetUserByIdAsync(Guid userId)
         {
             // Initialize the user variable
             User? user = null;
@@ -70,7 +65,7 @@ namespace HarvestHaven.Repository.Repositories
             return user;
         }
 
-        public async Task<List<User>> GetAllUsersAsync()
+        public static async Task<List<User>> GetAllUsersAsync()
         {
             List<User> users = new List<User>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -97,7 +92,7 @@ namespace HarvestHaven.Repository.Repositories
             return users;
         }
 
-        public async Task UpdateUserAsync(User user)
+        public static async Task UpdateUserAsync(User user)
         {
             // Create the SQL connection and release the resources after use.
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -115,7 +110,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task DeleteUserByIdAsync(Guid userId)
+        public static async Task DeleteUserByIdAsync(Guid userId)
         {
             // Create the SQL connection and release the resources after use.
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -132,12 +127,12 @@ namespace HarvestHaven.Repository.Repositories
         #endregion
 
         #region Helper Functions
-        public async Task TestAsync()
+        public static async Task TestAsync()
         {
             try
             {
                 // Get all users asynchronously
-                List<User> users = await this.GetAllUsersAsync();
+                List<User> users = await UserRepository.GetAllUsersAsync();
 
                 // Display the usernames
                 if (users != null && users.Any())
@@ -162,11 +157,11 @@ namespace HarvestHaven.Repository.Repositories
                     TradeHallUnlockTime = DateTime.Now,
                     LastTimeReceivedWater = DateTime.Now
                 };
-                await this.AddUserAsync(newUser);
+                await UserRepository.AddUserAsync(newUser);
                 Console.WriteLine($"New user added: {newUser.Username}");
 
                 // Get all users again
-                users = await this.GetAllUsersAsync();
+                users = await UserRepository.GetAllUsersAsync();
                 if (users != null && users.Any())
                 {
                     Console.WriteLine("\nUpdated Users:");
@@ -182,7 +177,7 @@ namespace HarvestHaven.Repository.Repositories
 
                 // Update the newly added user
                 newUser.Coins += 50;
-                await this.UpdateUserAsync(newUser);
+                await UserRepository.UpdateUserAsync(newUser);
                 Console.WriteLine($"\nUser {newUser.Username} updated. New coins: {newUser.Coins}");
 
                 // Delete the newly added user
@@ -190,7 +185,7 @@ namespace HarvestHaven.Repository.Repositories
                 Console.WriteLine($"\nUser {newUser.Username} deleted.");
 
                 // Get all users after deletion
-                users = await this.GetAllUsersAsync();
+                users = await UserRepository.GetAllUsersAsync();
                 if (users != null && users.Any())
                 {
                     Console.WriteLine("\nUsers after deletion:");

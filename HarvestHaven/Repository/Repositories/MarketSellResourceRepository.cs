@@ -1,22 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using HarvestHaven.Repository.Entities;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class MarketSellResourceRepository
+    public static class MarketSellResourceRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public MarketSellResourceRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
+        public static async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             List<MarketSellResource> sellResources = new List<MarketSellResource>();
             using (SqlConnection connection = new SqlConnection(_connectionString))

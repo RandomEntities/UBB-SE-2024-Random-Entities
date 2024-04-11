@@ -4,16 +4,11 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class CommentRepository
+    public static class CommentRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public CommentRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task CreateCommentAsync(Comment comment)
+        public static async Task CreateCommentAsync(Comment comment)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -30,7 +25,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
+        public static async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
             List<Comment> userComments = new List<Comment>();
             using (SqlConnection connection = new SqlConnection(_connectionString))

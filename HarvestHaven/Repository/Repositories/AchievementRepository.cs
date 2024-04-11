@@ -1,22 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using HarvestHaven.Repository.Entities;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class AchievementRepository
+    public static class AchievementRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public AchievementRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<Achievement>> GetAllAchievementsAsync()
+        public static async Task<List<Achievement>> GetAllAchievementsAsync()
         {
             List<Achievement> achievements = new List<Achievement>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -41,7 +33,7 @@ namespace HarvestHaven.Repository.Repositories
             return achievements;
         }
 
-        public async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
+        public static async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
         {
             Achievement achievement = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))

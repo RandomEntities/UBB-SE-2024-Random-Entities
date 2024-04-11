@@ -4,16 +4,11 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Repository.Repositories
 {
-    public class ResourceRepository
+    public static class ResourceRepository
     {
-        private readonly string _connectionString;
+        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public ResourceRepository()
-        {
-            this._connectionString = DatabaseHelper.GetDatabaseFilePath();
-        }
-
-        public async Task<List<Resource>> GetAllResourcesAsync()
+        public static async Task<List<Resource>> GetAllResourcesAsync()
         {
             List<Resource> resources = new List<Resource>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -37,7 +32,7 @@ namespace HarvestHaven.Repository.Repositories
             return resources;
         }
 
-        public async Task<Resource> GetResourceByIdAsync(Guid resourceId)
+        public static async Task<Resource> GetResourceByIdAsync(Guid resourceId)
         {
             Resource resource = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
