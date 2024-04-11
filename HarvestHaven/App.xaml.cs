@@ -1,4 +1,4 @@
-﻿using HarvestHaven.Repository.Repositories;
+﻿using HarvestHaven.Repositories;
 using System.Windows;
 
 namespace HarvestHaven
