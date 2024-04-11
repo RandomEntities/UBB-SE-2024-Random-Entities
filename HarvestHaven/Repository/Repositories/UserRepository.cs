@@ -33,7 +33,7 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
             // Initialize the user variable
             User? user = null;
@@ -43,10 +43,10 @@ namespace HarvestHaven.Repository.Repositories
             {
                 await connection.OpenAsync();
                 // Create the SQL command to select the user by username
-                string query = "SELECT * FROM Users WHERE Username = @Username";
+                string query = "SELECT * FROM Users WHERE Id = @Id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Id", userId);
                     // Execute the command and read the result
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
