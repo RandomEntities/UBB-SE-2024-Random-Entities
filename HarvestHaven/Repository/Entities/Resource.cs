@@ -4,6 +4,12 @@
     {
         public Guid Id { get; set; }
         public ResourceType ResourceType { get; set; }
+
+        public Resource(Guid id, ResourceType resourceType)
+        {
+            Id = id;
+            ResourceType = resourceType;
+        }
     }
 
     public enum ResourceType
