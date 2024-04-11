@@ -2,14 +2,16 @@
 {
     public static class Extensions
     {
-        public static int ToInt(this Enum enumValue)
+        // Extension method to convert enum to string.
+        public static string ToEnumString<TEnum>(this TEnum enumValue) where TEnum : Enum
         {
-            return Convert.ToInt32(enumValue);
+            return enumValue.ToString();
         }
 
-        public static TEnum ToEnum<TEnum>(this int value) where TEnum : Enum
+        // Extension method to convert string to enum.
+        public static T ToEnum<T>(this string value)
         {
-            return (TEnum)Enum.ToObject(typeof(TEnum), value);
+            return (T)Enum.Parse(typeof(T), value, true);
         }
     }
 }

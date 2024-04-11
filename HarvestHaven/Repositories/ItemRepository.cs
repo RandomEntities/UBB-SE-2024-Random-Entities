@@ -23,7 +23,7 @@ namespace HarvestHaven.Repositories
                             items.Add(new Item
                             (
                                 id: (Guid)reader["Id"],
-                                itemType: (ItemType)reader["ItemType"],
+                                itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
                                 requiredResourceId: (Guid)reader["RequiredResourceId"],
                                 interactResourceId: (Guid)reader["InteractResourceId"],
                                 destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
@@ -52,7 +52,7 @@ namespace HarvestHaven.Repositories
                             item = new Item
                             (
                                 id: (Guid)reader["Id"],
-                                itemType: (ItemType)reader["ItemType"],
+                                itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
                                 requiredResourceId: (Guid)reader["RequiredResourceId"],
                                 interactResourceId: (Guid)reader["InteractResourceId"],
                                 destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
