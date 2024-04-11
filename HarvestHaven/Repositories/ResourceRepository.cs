@@ -57,5 +57,49 @@ namespace HarvestHaven.Repositories
             }
             return resource;
         }
+
+        public static async Task AddResourceAsync(Resource resource)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "INSERT INTO Resources (Id, ResourceType) VALUES (@Id, @ResourceType)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", resource.Id);
+                    command.Parameters.AddWithValue("@ResourceType", resource.ResourceType.ToString());
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task UpdateResourceAsync(Resource resource)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE Resources SET ResourceType = @ResourceType WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", resource.Id);
+                    command.Parameters.AddWithValue("@ResourceType", resource.ResourceType.ToString());
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteResourceAsync(Guid resourceId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM Resources WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", resourceId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

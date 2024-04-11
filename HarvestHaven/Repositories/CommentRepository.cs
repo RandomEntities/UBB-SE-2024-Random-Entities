@@ -52,5 +52,34 @@ namespace HarvestHaven.Repositories
             }
             return userComments;
         }
+
+        public static async Task UpdateCommentAsync(Comment comment)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE Comments SET Message = @Message WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", comment.Id);
+                    command.Parameters.AddWithValue("@Message", comment.Message);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteCommentAsync(Guid commentId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM Comments WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", commentId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

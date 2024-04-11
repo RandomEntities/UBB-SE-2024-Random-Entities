@@ -32,5 +32,51 @@ namespace HarvestHaven.Repositories
             }
             return sellResources;
         }
+
+        public static async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "INSERT INTO MarketSellResources (Id, ResourceId, SellPrice) VALUES (@Id, @ResourceId, @SellPrice)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", marketSellResource.Id);
+                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceId);
+                    command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task UpdateMarketSellResourceAsync(MarketSellResource marketSellResource)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE MarketSellResources SET ResourceId = @ResourceId, SellPrice = @SellPrice WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", marketSellResource.Id);
+                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceId);
+                    command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteMarketSellResourceAsync(Guid marketSellResourceId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM MarketSellResources WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", marketSellResourceId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

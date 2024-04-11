@@ -32,5 +32,51 @@ namespace HarvestHaven.Repositories
             }
             return marketBuyItems;
         }
+
+        public static async Task AddMarketBuyItemAsync(MarketBuyItem marketBuyItem)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "INSERT INTO MarketBuyItems (Id, ItemId, BuyPrice) VALUES (@Id, @ItemId, @BuyPrice)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", marketBuyItem.Id);
+                    command.Parameters.AddWithValue("@ItemId", marketBuyItem.ItemId);
+                    command.Parameters.AddWithValue("@BuyPrice", marketBuyItem.BuyPrice);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task UpdateMarketBuyItemAsync(MarketBuyItem marketBuyItem)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE MarketBuyItems SET ItemId = @ItemId, BuyPrice = @BuyPrice WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", marketBuyItem.Id);
+                    command.Parameters.AddWithValue("@ItemId", marketBuyItem.ItemId);
+                    command.Parameters.AddWithValue("@BuyPrice", marketBuyItem.BuyPrice);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteMarketBuyItemAsync(Guid marketBuyItemId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM MarketBuyItems WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", marketBuyItemId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

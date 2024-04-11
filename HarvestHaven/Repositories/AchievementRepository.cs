@@ -59,5 +59,51 @@ namespace HarvestHaven.Repositories
             }
             return achievement;
         }
+
+        public static async Task AddAchievementAsync(Achievement achievement)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", achievement.Id);
+                    command.Parameters.AddWithValue("@Description", achievement.Description);
+                    command.Parameters.AddWithValue("@RewardCoins", achievement.RewardCoins);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task UpdateAchievementAsync(Achievement achievement)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", achievement.Id);
+                    command.Parameters.AddWithValue("@Description", achievement.Description);
+                    command.Parameters.AddWithValue("@RewardCoins", achievement.RewardCoins);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteAchievementAsync(Guid achievementId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM Achievements WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", achievementId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

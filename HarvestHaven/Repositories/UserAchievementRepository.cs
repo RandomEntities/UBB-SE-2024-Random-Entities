@@ -49,5 +49,36 @@ namespace HarvestHaven.Repositories
                 }
             }
         }
+
+        public static async Task UpdateUserAchievementAsync(UserAchievement userAchievement)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE UserAchievements SET UserId = @UserId, AchievementId = @AchievementId, CreatedTime = @CreatedTime WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", userAchievement.Id);
+                    command.Parameters.AddWithValue("@UserId", userAchievement.UserId);
+                    command.Parameters.AddWithValue("@AchievementId", userAchievement.AchievementId);
+                    command.Parameters.AddWithValue("@CreatedTime", userAchievement.CreatedTime);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteUserAchievementAsync(Guid userAchievementId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM UserAchievements WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", userAchievementId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }
