@@ -1,5 +1,5 @@
-﻿using HarvestHaven.Repository.Entities;
-using HarvestHaven.Repository.Repositories;
+﻿using HarvestHaven.Entities;
+using HarvestHaven.Repositories;
 
 namespace HarvestHaven.Services
 {

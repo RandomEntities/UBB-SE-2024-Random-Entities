@@ -1,19 +1,25 @@
 ﻿using System;
+using HarvestHaven.Entities;
 
 namespace HarvestHaven.Utils
 {
     public static class GameStateManager
     {
-        private static Guid _currentUserId;
+        private static User? _currentUser;
 
-        public static Guid CurrentUserId
+        public static User? GetCurrentUser()
         {
-            get { return _currentUserId; }
+            return _currentUser;
         }
 
-        public static void SetCurrentUserId(Guid userId)
+        public static Guid GetCurrentUserId()
         {
-            _currentUserId = userId;
+            return _currentUser.Id;
+        }
+
+        public static void SetCurrentUser(User user)
+        {
+            _currentUser = user;
         }
     }
 }
