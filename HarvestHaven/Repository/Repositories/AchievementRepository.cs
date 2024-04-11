@@ -21,11 +21,11 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             achievements.Add(new Achievement
-                            {
-                                Id = (Guid)reader["Id"],
-                                Description = (string)reader["Description"],
-                                RewardCoins = (int)reader["RewardCoins"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                description: (string)reader["Description"],
+                                rewardCoins: (int)reader["RewardCoins"]
+                            ));
                         }
                     }
                 }
@@ -48,11 +48,11 @@ namespace HarvestHaven.Repository.Repositories
                         if (await reader.ReadAsync())
                         {
                             achievement = new Achievement
-                            {
-                                Id = (Guid)reader["Id"],
-                                Description = (string)reader["Description"],
-                                RewardCoins = (int)reader["RewardCoins"]
-                            };
+                            (
+                                id: (Guid)reader["Id"],
+                                description: (string)reader["Description"],
+                                rewardCoins: (int)reader["RewardCoins"]
+                            );
                         }
                     }
                 }

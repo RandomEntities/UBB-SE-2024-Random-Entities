@@ -50,13 +50,13 @@ namespace HarvestHaven.Repository.Repositories
                         {
                             // If a user is found, populate the user object
                             user = new User
-                            {
-                                Id = (Guid)reader["Id"],
-                                Username = (string)reader["Username"],
-                                Coins = (int)reader["Coins"],
-                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"],
-                                LastTimeReceivedWater = (DateTime)reader["LastTimeReceivedWater"]
-                            };
+                            (
+                                id: (Guid)reader["Id"],
+                                username: (string)reader["Username"],
+                                coins: (int)reader["Coins"],
+                                tradeHallUnlockTime: (DateTime)reader["TradeHallUnlockTime"],
+                                lastTimeReceivedWater: (DateTime)reader["LastTimeReceivedWater"]
+                            );
                         }
                     }
                 }
@@ -78,13 +78,13 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             users.Add(new User
-                            {
-                                Id = (Guid)reader["Id"],
-                                Username = (string)reader["Username"],
-                                Coins = (int)reader["Coins"],
-                                TradeHallUnlockTime = (DateTime)reader["TradeHallUnlockTime"],
-                                LastTimeReceivedWater = (DateTime)reader["LastTimeReceivedWater"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                username: (string)reader["Username"],
+                                coins: (int)reader["Coins"],
+                                tradeHallUnlockTime: (DateTime)reader["TradeHallUnlockTime"],
+                                lastTimeReceivedWater: (DateTime)reader["LastTimeReceivedWater"]
+                            ));
                         }
                     }
                 }
@@ -150,13 +150,13 @@ namespace HarvestHaven.Repository.Repositories
 
                 // Add a random user
                 User newUser = new User
-                {
-                    Id = Guid.NewGuid(),
-                    Username = "NewUser",
-                    Coins = 100,
-                    TradeHallUnlockTime = DateTime.Now,
-                    LastTimeReceivedWater = DateTime.Now
-                };
+                (
+                    id: Guid.NewGuid(),
+                    username: "NewUser",
+                    coins: 100,
+                    tradeHallUnlockTime: DateTime.Now,
+                    lastTimeReceivedWater: DateTime.Now
+                );
                 await UserRepository.AddUserAsync(newUser);
                 Console.WriteLine($"New user added: {newUser.Username}");
 

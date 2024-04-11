@@ -21,10 +21,10 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             resources.Add(new Resource
-                            {
-                                Id = (Guid)reader["Id"],
-                                ResourceType = (ResourceType)reader["ResourceType"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                resourceType: (ResourceType)reader["ResourceType"]
+                            ));
                         }
                     }
                 }
@@ -47,10 +47,10 @@ namespace HarvestHaven.Repository.Repositories
                         if (await reader.ReadAsync())
                         {
                             resource = new Resource
-                            {
-                                Id = (Guid)reader["Id"],
-                                ResourceType = (ResourceType)reader["ResourceType"]
-                            };
+                            (
+                                id: (Guid)reader["Id"],
+                                resourceType: (ResourceType)reader["ResourceType"]
+                            );
                         }
                     }
                 }

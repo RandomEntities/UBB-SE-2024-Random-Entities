@@ -23,15 +23,15 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             farmCells.Add(new FarmCell
-                            {
-                                Id = (Guid)reader["Id"],
-                                UserId = (Guid)reader["UserId"],
-                                Row = (int)reader["Row"],
-                                Column = (int)reader["Column"],
-                                ItemId = (Guid)reader["ItemId"],
-                                LastTimeEnhanced = reader["LastTimeEnhanced"] != DBNull.Value ? (DateTime?)reader["LastTimeEnhanced"] : null,
-                                LastTimeInteracted = reader["LastTimeInteracted"] != DBNull.Value ? (DateTime?)reader["LastTimeInteracted"] : null
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                row: (int)reader["Row"],
+                                column: (int)reader["Column"],
+                                itemId: (Guid)reader["ItemId"],
+                                lastTimeEnhanced: reader["LastTimeEnhanced"] != DBNull.Value ? (DateTime?)reader["LastTimeEnhanced"] : null,
+                                lastTimeInteracted: reader["LastTimeInteracted"] != DBNull.Value ? (DateTime?)reader["LastTimeInteracted"] : null
+                            ));
                         }
                     }
                 }

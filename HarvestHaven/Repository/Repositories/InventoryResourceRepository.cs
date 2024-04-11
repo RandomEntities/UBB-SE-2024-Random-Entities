@@ -23,12 +23,12 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             userResources.Add(new InventoryResource
-                            {
-                                Id = (Guid)reader["Id"],
-                                UserId = (Guid)reader["UserId"],
-                                ResourceId = (Guid)reader["ResourceId"],
-                                Quantity = (int)reader["Quantity"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                resourceId: (Guid)reader["ResourceId"],
+                                quantity: (int)reader["Quantity"]
+                            ));
                         }
                     }
                 }

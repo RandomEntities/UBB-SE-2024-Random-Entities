@@ -21,11 +21,11 @@ namespace HarvestHaven.Repository.Repositories
                         while (await reader.ReadAsync())
                         {
                             marketBuyItems.Add(new MarketBuyItem
-                            {
-                                Id = (Guid)reader["Id"],
-                                ItemId = (Guid)reader["ItemId"],
-                                BuyPrice = (int)reader["BuyPrice"]
-                            });
+                            (
+                                id: (Guid)reader["Id"],
+                                itemId: (Guid)reader["ItemId"],
+                                buyPrice: (int)reader["BuyPrice"]
+                            ));
                         }
                     }
                 }
