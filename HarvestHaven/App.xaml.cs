@@ -1,4 +1,6 @@
-﻿using HarvestHaven.Repositories;
+﻿using HarvestHaven.Entities;
+using HarvestHaven.Repositories;
+using HarvestHaven.Utils;
 using System.Windows;
 
 namespace HarvestHaven
@@ -10,7 +12,7 @@ namespace HarvestHaven
     {
         public App()
         {
-            UserRepository.TestAsync();
+            
         }
     }
 

@@ -23,7 +23,7 @@ namespace HarvestHaven.Repositories
                             resources.Add(new Resource
                             (
                                 id: (Guid)reader["Id"],
-                                resourceType: (ResourceType)reader["ResourceType"]
+                                resourceType: ((string)reader["ResourceType"]).ToEnum<ResourceType>()
                             ));
                         }
                     }
@@ -49,7 +49,7 @@ namespace HarvestHaven.Repositories
                             resource = new Resource
                             (
                                 id: (Guid)reader["Id"],
-                                resourceType: (ResourceType)reader["ResourceType"]
+                                resourceType: ((string)reader["ResourceType"]).ToEnum<ResourceType>()
                             );
                         }
                     }
