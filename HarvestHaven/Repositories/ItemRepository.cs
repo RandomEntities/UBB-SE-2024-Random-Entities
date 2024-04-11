@@ -63,5 +63,55 @@ namespace HarvestHaven.Repositories
             }
             return item;
         }
+
+        public static async Task CreateItemAsync(Item item)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "INSERT INTO Items (Id, ItemType, RequiredResourceId, InteractResourceId, DestroyResourceId) VALUES (@Id, @ItemType, @RequiredResourceId, @InteractResourceId, @DestroyResourceId)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", item.Id);
+                    command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
+                    command.Parameters.AddWithValue("@RequiredResourceId", item.RequiredResourceId);
+                    command.Parameters.AddWithValue("@InteractResourceId", item.InteractResourceId);
+                    command.Parameters.AddWithValue("@DestroyResourceId", (object)item.DestroyResourceId ?? DBNull.Value);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task UpdateItemAsync(Item item)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "UPDATE Items SET ItemType = @ItemType, RequiredResourceId = @RequiredResourceId, InteractResourceId = @InteractResourceId, DestroyResourceId = @DestroyResourceId WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", item.Id);
+                    command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
+                    command.Parameters.AddWithValue("@RequiredResourceId", item.RequiredResourceId);
+                    command.Parameters.AddWithValue("@InteractResourceId", item.InteractResourceId);
+                    command.Parameters.AddWithValue("@DestroyResourceId", (object)item.DestroyResourceId ?? DBNull.Value);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public static async Task DeleteItemAsync(Guid itemId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "DELETE FROM Items WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", itemId);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }
