@@ -46,9 +46,9 @@ namespace HarvestHaven.Repository.Repositories
             return trades;
         }
 
-        public async Task<List<Trade>> GetUserTradesAsync(Guid userId)
+        public async Task<Trade> GetUserTradeAsync(Guid userId)
         {
-            List<Trade> userTrades = new List<Trade>();
+            Trade userTrade = new Trade();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -58,9 +58,9 @@ namespace HarvestHaven.Repository.Repositories
                     command.Parameters.AddWithValue("@UserId", userId);
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        if (await reader.ReadAsync())
                         {
-                            userTrades.Add(new Trade
+                            userTrade = new Trade
                             {
                                 Id = (Guid)reader["Id"],
                                 UserId = (Guid)reader["UserId"],
@@ -70,12 +70,12 @@ namespace HarvestHaven.Repository.Repositories
                                 RequestedResourceQuantity = (int)reader["RequestedResourceQuantity"],
                                 CreatedTime = (DateTime)reader["CreatedTime"],
                                 IsCompleted = (bool)reader["IsCompleted"]
-                            });
+                            };
                         }
                     }
                 }
             }
-            return userTrades;
+            return userTrade;
         }
 
         public async Task CreateTradeAsync(Trade trade)
@@ -99,15 +99,16 @@ namespace HarvestHaven.Repository.Repositories
             }
         }
 
-        public async Task PerformTradeAsync(Guid tradeId)
+        public async Task UpdateTradeAsync(Trade trade)
         {
+            // Create the SQL connection and release the resources after use.
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "UPDATE Trades SET IsCompleted = 1 WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("UPDATE Trades SET IsCompleted = @IsCompleted WHERE Id = @Id", connection))
                 {
-                    command.Parameters.AddWithValue("@Id", tradeId);
+                    command.Parameters.AddWithValue("@Id", trade.Id);
+                    command.Parameters.AddWithValue("@IsCompleted", trade.IsCompleted);
                     await command.ExecuteNonQueryAsync();
                 }
             }
