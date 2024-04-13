@@ -41,6 +41,21 @@ namespace HarvestHaven.Services
             return inventoryResourcesMap;
         }
 
+        public static async Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType)
+        {
+            // Throw an error if the user is not logged in.
+            if (GameStateManager.GetCurrentUser() == null) throw new Exception("User must be logged in!");
+
+            // Get the resource with the given type from the database.
+            Resource resource = await ResourceRepository.GetResourceByTypeAsync(resourceType);
+            if (resource == null) throw new Exception($"Resource with type: {resourceType.ToString()} found in the database.");
+
+            // Get the inventory resource from the database.
+            InventoryResource inventoryResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
+
+            return inventoryResource;
+        }
+
         #endregion
 
         #region Comments
