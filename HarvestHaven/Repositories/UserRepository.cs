@@ -21,8 +21,8 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@Id", user.Id);
                     command.Parameters.AddWithValue("@Username", user.Username);
                     command.Parameters.AddWithValue("@Coins", user.Coins);
-                    command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime);
-                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater);
+                    command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -54,8 +54,8 @@ namespace HarvestHaven.Repositories
                                 id: (Guid)reader["Id"],
                                 username: (string)reader["Username"],
                                 coins: (int)reader["Coins"],
-                                tradeHallUnlockTime: (DateTime)reader["TradeHallUnlockTime"],
-                                lastTimeReceivedWater: (DateTime)reader["LastTimeReceivedWater"]
+                                tradeHallUnlockTime: reader["TradeHallUnlockTime"] != DBNull.Value ? (DateTime)reader["TradeHallUnlockTime"] : null,
+                                lastTimeReceivedWater: reader["LastTimeReceivedWater"] != DBNull.Value ? (DateTime)reader["LastTimeReceivedWater"] : null
                             );
                         }
                     }
@@ -82,8 +82,8 @@ namespace HarvestHaven.Repositories
                                 id: (Guid)reader["Id"],
                                 username: (string)reader["Username"],
                                 coins: (int)reader["Coins"],
-                                tradeHallUnlockTime: (DateTime)reader["TradeHallUnlockTime"],
-                                lastTimeReceivedWater: (DateTime)reader["LastTimeReceivedWater"]
+                                tradeHallUnlockTime: reader["DestroyResourceId"] != DBNull.Value ? (DateTime)reader["TradeHallUnlockTime"] : null,
+                                lastTimeReceivedWater: reader["LastTimeReceivedWater"] != DBNull.Value ? (DateTime)reader["LastTimeReceivedWater"] : null
                             ));
                         }
                     }
@@ -103,8 +103,8 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@Id", user.Id);
                     command.Parameters.AddWithValue("@Username", user.Username);
                     command.Parameters.AddWithValue("@Coins", user.Coins);
-                    command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime);
-                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater);
+                    command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }

@@ -7,8 +7,8 @@
         public int Row { get; set; }
         public int Column { get; set; }
         public Guid ItemId { get; set; }
-        public DateTime? LastTimeEnhanced { get; set; }
-        public DateTime? LastTimeInteracted { get; set; }
+        public DateTime? LastTimeEnhanced { get; set; } // Nullable.
+        public DateTime? LastTimeInteracted { get; set; } // Nullable.
 
         public FarmCell(Guid id, Guid userId, int row, int column, Guid itemId, DateTime? lastTimeEnhanced, DateTime? lastTimeInteracted)
         {
