@@ -154,8 +154,8 @@ namespace HarvestHaven.Repositories
                     id: Guid.NewGuid(),
                     username: "NewUser",
                     coins: 100,
-                    tradeHallUnlockTime: DateTime.Now,
-                    lastTimeReceivedWater: DateTime.Now
+                    tradeHallUnlockTime: DateTime.UtcNow,
+                    lastTimeReceivedWater: DateTime.UtcNow
                 );
                 await AddUserAsync(newUser);
                 Console.WriteLine($"New user added: {newUser.Username}");

@@ -58,6 +58,33 @@ namespace HarvestHaven.Repositories
             return resource;
         }
 
+        public static async Task<Resource> GetResourceByTypeAsync(ResourceType resourceType)
+        {
+            Resource resource = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT * FROM Resources WHERE ResourceType = @ResourceType";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ResourceType", resourceType);
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            resource = new Resource
+                            (
+                                id: (Guid)reader["Id"],
+                                resourceType: ((string)reader["ResourceType"]).ToEnum<ResourceType>()
+                            );
+                        }
+                    }
+                }
+            }
+            return resource;
+        }
+
+
         public static async Task AddResourceAsync(Resource resource)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

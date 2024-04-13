@@ -64,6 +64,35 @@ namespace HarvestHaven.Repositories
             return item;
         }
 
+        public static async Task<Item> GetItemByTypeAsync(ItemType itemType)
+        {
+            Item item = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT * FROM Items WHERE ItemType = @ItemType";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ItemType", itemType.ToString());
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            item = new Item
+                            (
+                                id: (Guid)reader["Id"],
+                                itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
+                                requiredResourceId: (Guid)reader["RequiredResourceId"],
+                                interactResourceId: (Guid)reader["InteractResourceId"],
+                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
+                            );
+                        }
+                    }
+                }
+            }
+            return item;
+        }
+
         public static async Task CreateItemAsync(Item item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

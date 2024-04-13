@@ -8,7 +8,7 @@ namespace HarvestHaven.Repositories
     {
         private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<FarmCell>> GetFarmCellsByUserIdAsync(Guid userId)
+        public static async Task<List<FarmCell>> GetUserFarmCellsAsync(Guid userId)
         {
             List<FarmCell> farmCells = new List<FarmCell>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -39,7 +39,40 @@ namespace HarvestHaven.Repositories
             return farmCells;
         }
 
-        public static async Task AddFarmCellForUserAsync(FarmCell farmCell)
+        public static async Task<FarmCell> GetUserFarmCellByPositionAsync(Guid userId, int row, int column)
+        {
+            FarmCell farmCell = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT * FROM FarmCells WHERE UserId = @UserId AND Row = @Row AND Column = @Column";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Row", row);
+                    command.Parameters.AddWithValue("@Column", column);
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            farmCell = new FarmCell
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                row: (int)reader["Row"],
+                                column: (int)reader["Column"],
+                                itemId: (Guid)reader["ItemId"],
+                                lastTimeEnhanced: reader["LastTimeEnhanced"] != DBNull.Value ? (DateTime?)reader["LastTimeEnhanced"] : null,
+                                lastTimeInteracted: reader["LastTimeInteracted"] != DBNull.Value ? (DateTime?)reader["LastTimeInteracted"] : null
+                            );
+                        }
+                    }
+                }
+            }
+            return farmCell;
+        }
+
+        public static async Task AddFarmCellAsync(FarmCell farmCell)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -59,7 +92,7 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateFarmCellForUserAsync(FarmCell farmCell)
+        public static async Task UpdateFarmCellAsync(FarmCell farmCell)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -78,7 +111,7 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteFarmCellForUserAsync(Guid farmCellId)
+        public static async Task DeleteFarmCellAsync(Guid farmCellId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
