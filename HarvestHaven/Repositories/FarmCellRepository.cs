@@ -45,7 +45,7 @@ namespace HarvestHaven.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT * FROM FarmCells WHERE UserId = @UserId AND Row = @Row AND Column = @Column";
+                string query = "SELECT * FROM FarmCells WHERE UserId = @UserId AND Row = @Row AND [Column] = @Column";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@UserId", userId);
@@ -77,7 +77,7 @@ namespace HarvestHaven.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO FarmCells (Id, UserId, Row, Column, ItemId, LastTimeEnhanced, LastTimeInteracted) VALUES (@Id, @UserId, @Row, @Column, @ItemId, @LastTimeEnhanced, @LastTimeInteracted)";
+                string query = "INSERT INTO FarmCells (Id, UserId, Row, [Column], ItemId, LastTimeEnhanced, LastTimeInteracted) VALUES (@Id, @UserId, @Row, @Column, @ItemId, @LastTimeEnhanced, @LastTimeInteracted)";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", farmCell.Id);
@@ -97,7 +97,7 @@ namespace HarvestHaven.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "UPDATE FarmCells SET Row = @Row, Column = @Column, ItemId = @ItemId, LastTimeEnhanced = @LastTimeEnhanced, LastTimeInteracted = @LastTimeInteracted WHERE Id = @Id";
+                string query = "UPDATE FarmCells SET Row = @Row, [Column] = @Column, ItemId = @ItemId, LastTimeEnhanced = @LastTimeEnhanced, LastTimeInteracted = @LastTimeInteracted WHERE Id = @Id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", farmCell.Id);
