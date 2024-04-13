@@ -44,6 +44,11 @@ namespace HarvestHaven
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            BackToFarm();
+        }
+
+        private void BackToFarm()
+        {
             farmScreen.Top = this.Top;
             farmScreen.Left = this.Left;
 
@@ -57,7 +62,7 @@ namespace HarvestHaven
             try
             {
                 await MarketService.BuyItem(row, column, itemType);
-                RefreshGUI();
+                BackToFarm();
             }
             catch (Exception e)
             {

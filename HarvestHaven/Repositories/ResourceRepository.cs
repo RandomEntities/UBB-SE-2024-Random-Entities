@@ -67,7 +67,7 @@ namespace HarvestHaven.Repositories
                 string query = "SELECT * FROM Resources WHERE ResourceType = @ResourceType";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ResourceType", resourceType);
+                    command.Parameters.AddWithValue("@ResourceType", resourceType.ToString());
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())

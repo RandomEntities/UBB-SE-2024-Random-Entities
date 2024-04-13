@@ -29,6 +29,17 @@ namespace HarvestHaven
         private List<Image> itemIcons = new List<Image>();
         private StackPanel? buyButton;
 
+        #region Image Paths
+        private const string carrotPath = "Assets/Sprites/Items/carrot.png";
+        private const string cornPath = "Assets/Sprites/Items/corn.png";
+        private const string wheatPath = "Assets/Sprites/Items/wheat.png";
+        private const string tomatoPath = "Assets/Sprites/Items/tomato.png";
+        private const string chickenPath = "Assets/Sprites/Items/chicken.png";
+        private const string sheepPath = "Assets/Sprites/Items/sheep.png";
+        private const string cowPath = "Assets/Sprites/Items/cow.png";
+        private const string duckPath = "Assets/Sprites/Items/duck.png";
+        #endregion
+
         private const int columnCount = 6;
         private int clickedRow;
         private int clickedColumn;
@@ -116,20 +127,8 @@ namespace HarvestHaven
             #region Update Water
             try
             {
-                Dictionary<InventoryResource, Resource> items = await UserService.GetInventoryResources();
-
-                bool found = false;
-                foreach (KeyValuePair<InventoryResource, Resource> pair in items)
-                {
-                    if (pair.Value.ResourceType == ResourceType.Water)
-                    {
-                        waterLabel.Content = pair.Key.Quantity;
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found) waterLabel.Content = "0";
+                InventoryResource water = await UserService.GetInventoryResourceByType(ResourceType.Water);
+                waterLabel.Content = water.Quantity;
             }
             catch (Exception e)
             {
@@ -137,6 +136,7 @@ namespace HarvestHaven
             }
             #endregion
 
+            #region Farm Rendering
             try
             {
                 Dictionary<FarmCell, Item> farmCells = await FarmService.GetAllFarmCellsForUser(user.Id);
@@ -147,7 +147,17 @@ namespace HarvestHaven
                     
                     Button associatedButton = (Button)FindName("Farm" + buttonIndex);
 
+                    ItemType type = pair.Value.ItemType;
                     string path = "";
+                    if (type == ItemType.CarrotSeeds) path = carrotPath;
+                    else if (type == ItemType.CornSeeds) path = cornPath;
+                    else if (type == ItemType.WheatSeeds) path = wheatPath;
+                    else if (type == ItemType.TomatoSeeds) path = tomatoPath;
+                    else if (type == ItemType.Chicken) path = chickenPath;
+                    else if (type == ItemType.Duck) path = duckPath;
+                    else if (type == ItemType.Sheep) path = sheepPath;
+                    else path = cowPath;
+
                     CreateItemIcon(associatedButton, path);
                 }
             }
@@ -155,6 +165,7 @@ namespace HarvestHaven
             {
                 MessageBox.Show(e.Message);
             }
+            #endregion
         }
 
         private void CreateItemIcon(Button associatedButton, string imagePath)
@@ -168,12 +179,9 @@ namespace HarvestHaven
             }
             newImage.Visibility = Visibility.Visible;
 
-            Thickness thickness = associatedButton.Margin;
-            thickness.Left += 6;
-            thickness.Top += 6;
-            newImage.Margin = thickness;
+            newImage.Margin = associatedButton.Margin;
 
-            newImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Sprites/Items/corn.png"));
+            newImage.Source = new BitmapImage(new Uri("pack://application:,,,/" + imagePath));
 
             FarmGrid.Children.Add(newImage);
             itemIcons.Add(newImage);
