@@ -1,7 +1,12 @@
-﻿using System;
+﻿using HarvestHaven.Entities;
+using HarvestHaven.Repositories;
+using HarvestHaven.Services;
+using HarvestHaven.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,11 +26,17 @@ namespace HarvestHaven
     /// </summary>
     public partial class Farm : Window
     {
-        private StackPanel buyButton;
+        private List<Image> itemIcons = new List<Image>();
+        private StackPanel? buyButton;
+
+        private const int columnCount = 6;
+        private int clickedRow;
+        private int clickedColumn;
 
         public Farm()
         {
             InitializeComponent();
+            RefreshGUI();
         }
 
         #region Screen Transitions
@@ -81,7 +92,92 @@ namespace HarvestHaven
 
             this.Hide();
         }
+
+        private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
+        {
+            DestroyBuyButton();
+
+            BuyMarket market = new BuyMarket(this, clickedRow, clickedColumn);
+
+            market.Top = this.Top;
+            market.Left = this.Left;
+
+            market.Show();
+
+            this.Hide();
+        }
         #endregion
+
+        public async void RefreshGUI()
+        {
+            User? user = GameStateManager.GetCurrentUser();
+            if (user != null) coinLabel.Content = user.Coins;
+
+            #region Update Water
+            try
+            {
+                Dictionary<InventoryResource, Resource> items = await UserService.GetInventoryResources();
+
+                bool found = false;
+                foreach (KeyValuePair<InventoryResource, Resource> pair in items)
+                {
+                    if (pair.Value.ResourceType == ResourceType.Water)
+                    {
+                        waterLabel.Content = pair.Key.Quantity;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) waterLabel.Content = "0";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            #endregion
+
+            try
+            {
+                Dictionary<FarmCell, Item> farmCells = await FarmService.GetAllFarmCellsForUser(user.Id);
+
+                foreach (KeyValuePair<FarmCell, Item> pair in farmCells)
+                {
+                    int buttonIndex = (pair.Key.Row - 1) * columnCount + pair.Key.Column;
+                    
+                    Button associatedButton = (Button)FindName("Farm" + buttonIndex);
+
+                    string path = "";
+                    CreateItemIcon(associatedButton, path);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void CreateItemIcon(Button associatedButton, string imagePath)
+        {
+            Image newImage = new Image();
+
+            PropertyInfo[] properties = typeof(Image).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.CanWrite) property.SetValue(newImage, property.GetValue(itemIcon));
+            }
+            newImage.Visibility = Visibility.Visible;
+
+            Thickness thickness = associatedButton.Margin;
+            thickness.Left += 6;
+            thickness.Top += 6;
+            newImage.Margin = thickness;
+
+            newImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Sprites/Items/corn.png"));
+
+            FarmGrid.Children.Add(newImage);
+            itemIcons.Add(newImage);
+        }
 
         private void CreateBuyButton(Button button)
         {
@@ -115,9 +211,43 @@ namespace HarvestHaven
             FarmGrid.Children.Add(newButton);
 
             this.buyButton = newButton;
+
+            SetRowColumn(button.Name);
         }
 
-        private void DestroyButton()
+        private void SetRowColumn(string name)
+        {
+            string possibleNumber = name.Substring(name.Length - 2, 2);
+            int number = 0;
+            if (int.TryParse(possibleNumber, out number))
+            {
+                ConvertToRowColumn(number);
+                return;
+            }
+
+            possibleNumber = name.Substring(name.Length - 1, 1);
+            number = int.Parse(possibleNumber);
+            ConvertToRowColumn(number);
+        }
+
+        private void ConvertToRowColumn(int number)
+        {
+            int fullRows = number / columnCount;
+
+            int newNumber = number - (fullRows * columnCount);
+            if (newNumber == 0)
+            {
+                this.clickedRow = fullRows;
+                this.clickedColumn = columnCount;
+            }
+            else
+            {
+                this.clickedRow = fullRows + 1;
+                this.clickedColumn = newNumber;
+            }
+        }
+
+        private void DestroyBuyButton()
         {
             if (buyButton != null)
             {
@@ -126,23 +256,9 @@ namespace HarvestHaven
             }
         }
 
-        private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
-        {
-            DestroyButton();
-
-            BuyMarket market = new BuyMarket(this);
-
-            market.Top = this.Top;
-            market.Left = this.Left;
-
-            market.Show();
-
-            this.Hide();
-        }
-
         private void Farm_Click(object sender, RoutedEventArgs e)
         {
-            DestroyButton();
+            DestroyBuyButton();
             CreateBuyButton((Button)sender);
         }
 
@@ -151,11 +267,12 @@ namespace HarvestHaven
             Point position = e.GetPosition((UIElement)sender);
 
             HitTestResult hitTestResult = VisualTreeHelper.HitTest((UIElement)sender, position);
-            if (hitTestResult != null) {
+            if (hitTestResult != null)
+            {
                 return;
             }
 
-            DestroyButton();
+            DestroyBuyButton();
         }
     }
 }

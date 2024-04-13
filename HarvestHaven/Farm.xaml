@@ -247,11 +247,11 @@
         <Image HorizontalAlignment="Center" Height="62" VerticalAlignment="Top" Width="900" Source="/Assets/Sprites/bar_icon.PNG" Stretch="Fill"/>
 
         <!--#region Coin Counter-->
-        <Label x:Name="CoinLabel" Content="150" HorizontalAlignment="Left" Margin="537,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="250" FlowDirection="RightToLeft"/>
+        <Label x:Name="coinLabel" Content="150" HorizontalAlignment="Left" Margin="537,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="250" FlowDirection="RightToLeft"/>
         <Image HorizontalAlignment="Left" Height="38" Margin="787,12,0,0" VerticalAlignment="Top" Width="42" Source="/Assets/Sprites/coin_icon.png"/>
         <!--#endregion-->
         <!--#region Water Counter-->
-        <Label x:Name="WaterLabel" Content="150" HorizontalAlignment="Left" Margin="248,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="211" FlowDirection="RightToLeft"/>
+        <Label x:Name="waterLabel" Content="150" HorizontalAlignment="Left" Margin="248,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="211" FlowDirection="RightToLeft"/>
         <Image HorizontalAlignment="Left" Height="45" Margin="450,11,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Sprites/water_icon.png"/>
         <!--#endregion-->
         <!--#region Profile Button-->
@@ -266,5 +266,6 @@
             <Label Content="Buy" Height="17" FontSize="10" Padding="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label Content="crop/animal" Height="17" FontSize="10" Padding="0,2,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </StackPanel>
+        <Image x:Name="itemIcon" HorizontalAlignment="Left" Height="60" Margin="242,290,0,0" VerticalAlignment="Top" Width="58" IsEnabled="False" Source="/Assets/Sprites/Items/carrot.png" Visibility="Hidden"/>
     </Grid>
 </Window>
