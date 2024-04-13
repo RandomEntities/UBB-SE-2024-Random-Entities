@@ -8,5 +8,12 @@ namespace HarvestHaven.Services
 {
     public static class MarketService
     {
+        // Get all buy items.
+
+        // Get all sell resources.
+
+        // Buy item.
+
+        // Sell resource.
     }
 }
