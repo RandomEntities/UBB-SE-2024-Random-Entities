@@ -1,7 +1,12 @@
-﻿using System;
+﻿using HarvestHaven.Entities;
+using HarvestHaven.Repositories;
+using HarvestHaven.Services;
+using HarvestHaven.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,11 +26,28 @@ namespace HarvestHaven
     /// </summary>
     public partial class Farm : Window
     {
-        private StackPanel buyButton;
+        private List<Image> itemIcons = new List<Image>();
+        private StackPanel? buyButton;
+
+        #region Image Paths
+        private const string carrotPath = "Assets/Sprites/Items/carrot.png";
+        private const string cornPath = "Assets/Sprites/Items/corn.png";
+        private const string wheatPath = "Assets/Sprites/Items/wheat.png";
+        private const string tomatoPath = "Assets/Sprites/Items/tomato.png";
+        private const string chickenPath = "Assets/Sprites/Items/chicken.png";
+        private const string sheepPath = "Assets/Sprites/Items/sheep.png";
+        private const string cowPath = "Assets/Sprites/Items/cow.png";
+        private const string duckPath = "Assets/Sprites/Items/duck.png";
+        #endregion
+
+        private const int columnCount = 6;
+        private int clickedRow;
+        private int clickedColumn;
 
         public Farm()
         {
             InitializeComponent();
+            RefreshGUI();
         }
 
         #region Screen Transitions
@@ -81,7 +103,89 @@ namespace HarvestHaven
 
             this.Hide();
         }
+
+        private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
+        {
+            DestroyBuyButton();
+
+            BuyMarket market = new BuyMarket(this, clickedRow, clickedColumn);
+
+            market.Top = this.Top;
+            market.Left = this.Left;
+
+            market.Show();
+
+            this.Hide();
+        }
         #endregion
+
+        public async void RefreshGUI()
+        {
+            User? user = GameStateManager.GetCurrentUser();
+            if (user != null) coinLabel.Content = user.Coins;
+
+            #region Update Water
+            try
+            {
+                InventoryResource water = await UserService.GetInventoryResourceByType(ResourceType.Water);
+                waterLabel.Content = water.Quantity;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            #endregion
+
+            #region Farm Rendering
+            try
+            {
+                Dictionary<FarmCell, Item> farmCells = await FarmService.GetAllFarmCellsForUser(user.Id);
+
+                foreach (KeyValuePair<FarmCell, Item> pair in farmCells)
+                {
+                    int buttonIndex = (pair.Key.Row - 1) * columnCount + pair.Key.Column;
+                    
+                    Button associatedButton = (Button)FindName("Farm" + buttonIndex);
+
+                    ItemType type = pair.Value.ItemType;
+                    string path = "";
+                    if (type == ItemType.CarrotSeeds) path = carrotPath;
+                    else if (type == ItemType.CornSeeds) path = cornPath;
+                    else if (type == ItemType.WheatSeeds) path = wheatPath;
+                    else if (type == ItemType.TomatoSeeds) path = tomatoPath;
+                    else if (type == ItemType.Chicken) path = chickenPath;
+                    else if (type == ItemType.Duck) path = duckPath;
+                    else if (type == ItemType.Sheep) path = sheepPath;
+                    else path = cowPath;
+
+                    CreateItemIcon(associatedButton, path);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            #endregion
+        }
+
+        private void CreateItemIcon(Button associatedButton, string imagePath)
+        {
+            Image newImage = new Image();
+
+            PropertyInfo[] properties = typeof(Image).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.CanWrite) property.SetValue(newImage, property.GetValue(itemIcon));
+            }
+            newImage.Visibility = Visibility.Visible;
+
+            newImage.Margin = associatedButton.Margin;
+
+            newImage.Source = new BitmapImage(new Uri("pack://application:,,,/" + imagePath));
+
+            FarmGrid.Children.Add(newImage);
+            itemIcons.Add(newImage);
+        }
 
         private void CreateBuyButton(Button button)
         {
@@ -115,9 +219,43 @@ namespace HarvestHaven
             FarmGrid.Children.Add(newButton);
 
             this.buyButton = newButton;
+
+            SetRowColumn(button.Name);
         }
 
-        private void DestroyButton()
+        private void SetRowColumn(string name)
+        {
+            string possibleNumber = name.Substring(name.Length - 2, 2);
+            int number = 0;
+            if (int.TryParse(possibleNumber, out number))
+            {
+                ConvertToRowColumn(number);
+                return;
+            }
+
+            possibleNumber = name.Substring(name.Length - 1, 1);
+            number = int.Parse(possibleNumber);
+            ConvertToRowColumn(number);
+        }
+
+        private void ConvertToRowColumn(int number)
+        {
+            int fullRows = number / columnCount;
+
+            int newNumber = number - (fullRows * columnCount);
+            if (newNumber == 0)
+            {
+                this.clickedRow = fullRows;
+                this.clickedColumn = columnCount;
+            }
+            else
+            {
+                this.clickedRow = fullRows + 1;
+                this.clickedColumn = newNumber;
+            }
+        }
+
+        private void DestroyBuyButton()
         {
             if (buyButton != null)
             {
@@ -126,23 +264,9 @@ namespace HarvestHaven
             }
         }
 
-        private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
-        {
-            DestroyButton();
-
-            BuyMarket market = new BuyMarket(this);
-
-            market.Top = this.Top;
-            market.Left = this.Left;
-
-            market.Show();
-
-            this.Hide();
-        }
-
         private void Farm_Click(object sender, RoutedEventArgs e)
         {
-            DestroyButton();
+            DestroyBuyButton();
             CreateBuyButton((Button)sender);
         }
 
@@ -151,11 +275,12 @@ namespace HarvestHaven
             Point position = e.GetPosition((UIElement)sender);
 
             HitTestResult hitTestResult = VisualTreeHelper.HitTest((UIElement)sender, position);
-            if (hitTestResult != null) {
+            if (hitTestResult != null)
+            {
                 return;
             }
 
-            DestroyButton();
+            DestroyBuyButton();
         }
     }
 }
