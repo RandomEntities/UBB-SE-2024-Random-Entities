@@ -60,7 +60,7 @@ namespace HarvestHaven
 
         private void ProfileButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ProfileTab profileTab = new ProfileTab();
+            ProfileTab profileTab = new ProfileTab(this);
 
             profileTab.Top = this.Top;
             profileTab.Left = this.Left;
