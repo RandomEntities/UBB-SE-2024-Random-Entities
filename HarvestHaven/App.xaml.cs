@@ -15,6 +15,9 @@ namespace HarvestHaven
         public App()
         {
             SetCurrentUser();
+
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
         }      
         
         private async void SetCurrentUser()
