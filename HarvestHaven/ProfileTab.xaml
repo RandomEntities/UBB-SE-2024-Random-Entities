@@ -24,29 +24,127 @@
     </Window.Resources>
 
     <Grid Height="450" Width="800">
-        <Image Source="/Profile Gui/Pictures/Capture.PNG" Stretch="Fill"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="10,379,0,0" VerticalAlignment="Top" 
-            RenderTransformOrigin="5.92,0.446" Width="223" Height="61" FontFamily="./Profile Gui/Font Families/Iceland-Regular.ttf" 
-            FontSize="44" Foreground="White" Cursor="Hand">
+        <Image Source="/Assets/Sprites/Profile_background.PNG" Stretch="Fill"/>
+        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,378,0,0" VerticalAlignment="Top" Height="62" Width="201" Foreground="White" FontSize="32" Click="BackButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>
         </Button>
-        <Button Margin="192,120,468,268" Width="140" Content="Achievements" FontSize="15" Foreground="White">
+        <Button x:Name="achievementButton" Margin="192,120,468,273" Width="140" Content="Achievements" FontSize="15" Foreground="White" Click="achievementButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
-        <Button Margin="332,120,328,268" Width="140" Content="Leaderboard" FontSize="15" Foreground="White">
+        <Button x:Name="leaderboardButton" Margin="332,120,328,273" Width="140" Content="Leaderboard" FontSize="15" Foreground="White" Click="leaderboardButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
-        <Button Margin="472,120,188,268" Width="140" Content="Comments" FontSize="15" Foreground="White">
+        <Button x:Name="commentsButton" Margin="470,120,190,273" Width="140" Content="Comments" FontSize="15" Foreground="White" Click="commentsButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Profile Gui/Pictures/Button.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
+        <ListBox ItemsSource="{Binding}" x:Name="achievementList" Margin="192,177,197,83" Width="411">
+            <ListBox.Resources>
+                <BitmapImage x:Key="FrameImage" UriSource="/Assets/Sprites/button_icon.jpg"/>
+                <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>
+            </ListBox.Resources>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Height="57">
+                        <DockPanel.Background>
+                            <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                        </DockPanel.Background>
+                        <DockPanel>
+                            <Image Source="{StaticResource FrameImage}" Width="40" Height="40" Margin="12,0,0,0"></Image>
+                            <Image Source="{Binding ImageSource}" Width="35" Height="35" Margin="-37.5,0,9,0"></Image>
+                        </DockPanel>
+                        <TextBlock Text="{Binding Description}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock x:Name="coins" Text="{Binding CoinAmount}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
+                            <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
+                        </StackPanel>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.Items>
 
+            </ListBox.Items>
+        </ListBox>
+        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411">
+            <ListBox.Resources>
+                <BitmapImage x:Key="FaceImage" UriSource="/Assets/Sprites/sunglasses_face_icon.png"/>
+                <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>
+            </ListBox.Resources>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Height="57">
+                        <DockPanel.Background>
+                            <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                        </DockPanel.Background>
+                        <TextBlock x:Name="index" Text="{Binding Id}" Foreground="White" FontSize="19" Margin="12,13,0,0"/>
+                        <Image Source="{StaticResource FaceImage}" Height="35" Width="35" Margin="9,0,9,0"></Image>
+                        <TextBlock x:Name="username" Text="{Binding UserName}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock x:Name="coins" Text="{Binding NumberOfCoins}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
+                            <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
+                        </StackPanel>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <ListBox ItemsSource="{Binding}" x:Name="commentList" Margin="192,177,197,83" Width="411">
+            <ListBox.Resources>
+                <BitmapImage x:Key="RedXImage" UriSource="/Assets/Sprites/red X.png"/>
+            </ListBox.Resources>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Height="57">
+                        <DockPanel.Background>
+                            <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                        </DockPanel.Background>
+                        <TextBlock Text="{Binding Description}" Foreground="White" FontSize="16" Margin="12,17,0,0"/>
+                        <Image Source="{StaticResource RedXImage}" HorizontalAlignment="Right" Width="35" Margin="0,0,12,0"></Image>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
 </Window>
