@@ -38,6 +38,37 @@ namespace HarvestHaven.Repositories
             return trades;
         }
 
+        public static async Task<Trade> GetTradeByIdAsync(Guid tradeId)
+        {
+            Trade? trade = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades Where Id = @Id", connection))
+                {
+                    command.Parameters.AddWithValue("@Id", tradeId);
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            trade = new Trade
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                givenResourceId: (Guid)reader["GivenResourceId"],
+                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
+                                requestedResourceId: (Guid)reader["RequestedResourceId"],
+                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
+                                createdTime: (DateTime)reader["CreatedTime"],
+                                isCompleted: (bool)reader["IsCompleted"]
+                            );
+                        }
+                    }
+                }
+            }
+            return trade;
+        }
+
         public static async Task<Trade> GetUserTradeAsync(Guid userId)
         {
             Trade userTrade = null;

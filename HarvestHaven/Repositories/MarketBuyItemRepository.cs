@@ -33,6 +33,32 @@ namespace HarvestHaven.Repositories
             return marketBuyItems;
         }
 
+        public static async Task<MarketBuyItem> GetMarketBuyItemByItemIdAsync(Guid itemId)
+        {
+            MarketBuyItem? marketBuyItem = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems WHERE ItemId = @ItemId", connection))
+                {
+                    command.Parameters.AddWithValue("@ItemId", itemId);
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            marketBuyItem = new MarketBuyItem
+                            (
+                                id: (Guid)reader["Id"],
+                                itemId: (Guid)reader["ItemId"],
+                                buyPrice: (int)reader["BuyPrice"]
+                            );
+                        }
+                    }
+                }
+            }
+            return marketBuyItem;
+        }
+
         public static async Task AddMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

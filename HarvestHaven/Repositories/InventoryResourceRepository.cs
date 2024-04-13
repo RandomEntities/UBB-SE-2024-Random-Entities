@@ -36,6 +36,37 @@ namespace HarvestHaven.Repositories
             return userResources;
         }
 
+        public static async Task<InventoryResource> GetUserResourceByResourceIdAsync(Guid userId, Guid resourceId)
+        {
+            InventoryResource? userResource = null;
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT * FROM InventoryResources WHERE UserId = @UserId AND ResourceId = @ResourceId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@ResourceId", resourceId);
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            userResource = new InventoryResource
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                resourceId: (Guid)reader["ResourceId"],
+                                quantity: (int)reader["Quantity"]
+                            );
+                        }
+                    }
+                }
+            }
+            return userResource;
+        }
+
+
         public static async Task AddUserResourceAsync(InventoryResource userResource)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

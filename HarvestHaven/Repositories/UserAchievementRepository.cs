@@ -8,14 +8,15 @@ namespace HarvestHaven.Repositories
     {
         private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<UserAchievement>> GetAllUserAchievementsAsync()
+        public static async Task<List<UserAchievement>> GetAllUserAchievementsAsync(Guid userId)
         {
             List<UserAchievement> userAchievements = new List<UserAchievement>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM UserAchievements", connection))
+                using (SqlCommand command = new SqlCommand("SELECT * FROM UserAchievements WHERE UserId = @UserId", connection))
                 {
+                    command.Parameters.AddWithValue("@UserId", userId);
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
