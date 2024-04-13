@@ -76,7 +76,7 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
                     command.Parameters.AddWithValue("@RequiredResourceId", item.RequiredResourceId);
                     command.Parameters.AddWithValue("@InteractResourceId", item.InteractResourceId);
-                    command.Parameters.AddWithValue("@DestroyResourceId", (object)item.DestroyResourceId ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@DestroyResourceId", item.DestroyResourceId ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -94,7 +94,7 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
                     command.Parameters.AddWithValue("@RequiredResourceId", item.RequiredResourceId);
                     command.Parameters.AddWithValue("@InteractResourceId", item.InteractResourceId);
-                    command.Parameters.AddWithValue("@DestroyResourceId", (object)item.DestroyResourceId ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@DestroyResourceId", item.DestroyResourceId ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }

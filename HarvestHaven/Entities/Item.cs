@@ -6,7 +6,7 @@
         public ItemType ItemType { get; set; }
         public Guid RequiredResourceId { get; set; }
         public Guid InteractResourceId { get; set; }
-        public Guid? DestroyResourceId { get; set; }
+        public Guid? DestroyResourceId { get; set; } // Nullable.
 
         public Item(Guid id, ItemType itemType, Guid requiredResourceId, Guid interactResourceId, Guid? destroyResourceId)
         {

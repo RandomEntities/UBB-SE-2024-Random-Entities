@@ -17,12 +17,17 @@ namespace HarvestHaven.Services
 
         public static async Task CreateTradeAsync(Guid givenResourceId, int givenResourceQuantity, Guid requestedResourceId, int requestedResourceQuantity)
         {
-            //await TradeRepository.CreateTradeAsync(trade);
+
+        }
+
+        public static async Task CancelTradeAsync(Guid tradeId)
+        {
+            
         }
 
         public static async Task PerformTradeAsync(Guid tradeId)
         {
-            //await TradeRepository.PerformTradeAsync(tradeId);
+            
         }
     }
 }
