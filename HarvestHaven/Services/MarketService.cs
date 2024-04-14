@@ -76,7 +76,7 @@ namespace HarvestHaven.Services
             InventoryResource? inventoryResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
 
             // Throw an error if the user doesn's have that resource.
-            if (inventoryResource == null || inventoryResource.Quantity <= 0) throw new Exception("Not enough money!");
+            if (inventoryResource == null || inventoryResource.Quantity <= 0) throw new Exception("You do not own any " + resource.ResourceType.ToString() + "!");
             #endregion
 
             // Update the inventory resource quantity in the database.

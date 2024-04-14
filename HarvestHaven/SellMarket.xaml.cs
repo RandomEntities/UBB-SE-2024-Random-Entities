@@ -1,4 +1,5 @@
 ﻿using HarvestHaven.Entities;
+using HarvestHaven.Repositories;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
 using System;
@@ -40,13 +41,14 @@ namespace HarvestHaven
             this.Close();
         }
 
-        private async void SellItem(ResourceType resourceType) {
+        private async void SellItem(ResourceType resourceType)
+        {
             try
             {
                 await MarketService.SellResource(resourceType);
                 RefreshGui();
-
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -57,6 +59,7 @@ namespace HarvestHaven
             User? user = GameStateManager.GetCurrentUser();
             if (user != null) PriceLabel.Content = user.Coins;
         }
+
         private void SellCarrotButton_Click(object sender, RoutedEventArgs e)
         {
             SellItem(ResourceType.Carrot);
