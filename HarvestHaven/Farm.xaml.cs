@@ -5,6 +5,7 @@ using HarvestHaven.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
 using System.Reflection;
 using System.Security.Cryptography.Xml;
 using System.Text;
@@ -48,6 +49,87 @@ namespace HarvestHaven
         {
             InitializeComponent();
             RefreshGUI();
+            Hello();
+        }
+
+        private async void Hello()
+        {
+                await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+                        id: Guid.NewGuid(),
+                        userId: GameStateManager.GetCurrentUserId(),
+                        resourceId: Guid.Parse("42f91ff4-6bc1-4e89-9aab-14d738f67f08"),
+                        quantity: 0
+                        ));;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("51ababa9-ef2f-4f5c-bf80-1a2eb6308c42"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("ae362eff-6245-4744-9b28-2d8e42a5c273"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("34ed9fba-09c3-4557-ad7a-88f65c7702c1"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("c99016b9-2b96-43af-8791-3becba627d9b"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("6d1bc4da-5b49-493d-a238-92f6618d3c15"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("6869409b-8bb7-4e30-bcab-97e9c8820d3f"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("843b9703-258c-40b3-aa50-9e763d0602e6"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+        id: Guid.NewGuid(),
+        userId: GameStateManager.GetCurrentUserId(),
+        resourceId: Guid.Parse("bd8e0d17-b20f-401e-946d-ab089ed94ae4"),
+        quantity: 0
+        )); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+id: Guid.NewGuid(),
+userId: GameStateManager.GetCurrentUserId(),
+resourceId: Guid.Parse("0a2e32a8-ab8d-46bb-9139-e08ee95f419f"),
+quantity: 0
+)); ;
+
+            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+id: Guid.NewGuid(),
+userId: GameStateManager.GetCurrentUserId(),
+resourceId: Guid.Parse("5e9181b1-98c9-45ee-81ae-e50f2e80abb1"),
+quantity: 0
+)); ;
         }
 
         #region Screen Transitions
