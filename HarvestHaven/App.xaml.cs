@@ -16,7 +16,7 @@ namespace HarvestHaven
         {
             SetCurrentUser();
 
-            Task.Delay(10);
+            Task.Delay(100);
 
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();

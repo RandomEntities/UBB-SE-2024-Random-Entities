@@ -81,14 +81,14 @@ namespace HarvestHaven
                 {
                     TradingPanel tradingPanel = new(item);
 
-                    Resource resource1 = await ResourceService.GetResourceByIdAsync(item.GivenResourceId);
+                    Resource resource1 = await ResourceService.GetResourceByIdAsync(item.RequestedResourceId);
                     ResourceType resourceType1 = resource1.ResourceType;
-                    tradingPanel.LabelGive.Content = item.GivenResourceQuantity;
+                    tradingPanel.LabelGive.Content = item.RequestedResourceQuantity;
                     tradingPanel.ImageGive.Source = new BitmapImage(new Uri(GetResourcePath(resourceType1), UriKind.Relative));
 
-                    Resource resource2 = await ResourceService.GetResourceByIdAsync(item.RequestedResourceId);
+                    Resource resource2 = await ResourceService.GetResourceByIdAsync(item.GivenResourceId);
                     ResourceType resourceType2 = resource2.ResourceType;
-                    tradingPanel.LabelGet.Content = item.RequestedResourceQuantity;
+                    tradingPanel.LabelGet.Content = item.GivenResourceQuantity;
                     tradingPanel.ImageGet.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
 
                     Trades_List.Items.Add(tradingPanel);

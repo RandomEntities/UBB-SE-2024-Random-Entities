@@ -138,7 +138,9 @@ namespace HarvestHaven
             try
             {
                 InventoryResource water = await UserService.GetInventoryResourceByType(ResourceType.Water);
-                waterLabel.Content = water.Quantity;
+
+                if (water == null) waterLabel.Content = "0";
+                else waterLabel.Content = water.Quantity;
             }
             catch (Exception e)
             {
