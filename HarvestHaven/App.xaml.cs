@@ -14,17 +14,19 @@ namespace HarvestHaven
     {
         public App()
         {
-            SetCurrentUser();
-
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
+            InitializeApp();
         }      
-        
-        private async void SetCurrentUser()
+
+        private async void InitializeApp()
         {
+            // Set the current user
             User user = await UserService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));
             GameStateManager.SetCurrentUser(user);
-        }         
+
+            // Open the Main Menu
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
+        }     
     }
 
 }
