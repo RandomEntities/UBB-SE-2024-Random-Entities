@@ -76,7 +76,7 @@ namespace HarvestHaven
         {
             try
             {
-                tradeList = await TradeService.GetTradesAsync();
+                tradeList = await TradeService.GetAllTradesExceptLoggedUser();
                 foreach (Trade item in tradeList)
                 {
                     TradingPanel tradingPanel = new(item);
@@ -138,10 +138,10 @@ namespace HarvestHaven
             //Open inventory and select the resource you want to get
             //and return the resource type
             Get_Button.Source = new BitmapImage(new Uri(chickenPath, UriKind.Relative));
-            giveResource = ResourceType.ChickenMeat;
+            getResource = ResourceType.ChickenMeat;
         }
 
-        private void Confirm_Cancel_Button_Click(object sender, RoutedEventArgs e)
+        private async void Confirm_Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             if (this.Confirm_Cancel_Button.Content.Equals("Confirm"))
             {
@@ -156,12 +156,12 @@ namespace HarvestHaven
                     {
                         throw new Exception();
                     }
-                    //TradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
+                    await TradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
                     this.Confirm_Cancel_Button.Content = "Cancel";
                 }
-                catch 
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Input should be a positive number!");
+                    MessageBox.Show(ex.Message);
                 }
             }
             else
