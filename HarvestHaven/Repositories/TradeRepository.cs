@@ -44,7 +44,7 @@ namespace HarvestHaven.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades WHERE UserId <> " + userId, connection))
+                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades WHERE UserId <> '" + userId + "'", connection))
                 {
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
