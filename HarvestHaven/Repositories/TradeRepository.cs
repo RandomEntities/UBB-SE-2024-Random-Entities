@@ -38,6 +38,36 @@ namespace HarvestHaven.Repositories
             return trades;
         }
 
+        public static async Task<List<Trade>> GetAllTradesExceptUser(Guid userId)
+        {
+            List<Trade> trades = new List<Trade>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades WHERE UserId <> '" + userId + "'", connection))
+                {
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            trades.Add(new Trade
+                            (
+                                id: (Guid)reader["Id"],
+                                userId: (Guid)reader["UserId"],
+                                givenResourceId: (Guid)reader["GivenResourceId"],
+                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
+                                requestedResourceId: (Guid)reader["RequestedResourceId"],
+                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
+                                createdTime: (DateTime)reader["CreatedTime"],
+                                isCompleted: (bool)reader["IsCompleted"]
+                            ));
+                        }
+                    }
+                }
+            }
+            return trades;
+        }
+
         public static async Task<Trade> GetTradeByIdAsync(Guid tradeId)
         {
             Trade? trade = null;

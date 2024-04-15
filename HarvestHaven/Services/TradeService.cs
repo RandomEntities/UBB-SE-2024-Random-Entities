@@ -11,6 +11,14 @@ namespace HarvestHaven.Services
             return await TradeRepository.GetAllTradesAsync();
         }
 
+        public static async Task<List<Trade>> GetAllTradesExceptLoggedUser()
+        {
+            // Throw an exception if the user is not logged in.
+            if (GameStateManager.GetCurrentUser() == null) throw new Exception("User must be logged in!");
+
+            return await TradeRepository.GetAllTradesExceptUser(GameStateManager.GetCurrentUser().Id);
+        }
+
         public static async Task<Trade> GetUserTradeAsync(Guid userId)
         {
             return await TradeRepository.GetUserTradeAsync(userId);
@@ -74,6 +82,25 @@ namespace HarvestHaven.Services
             // Update the user's inventory resources by removing the requested trade resource quantity and adding the given trade resource quantity.
             userRequestedResource.Quantity -= trade.RequestedResourceQuantity;
             await InventoryResourceRepository.UpdateUserResourceAsync(userRequestedResource);
+
+            // Get the user's requested trade resource from the inventory of the user who iniated the trade.
+            InventoryResource initialRequestedResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(trade.UserId, trade.RequestedResourceId);
+
+            // If the user already has this resource in his inventory simply update the quantity.
+            if (initialRequestedResource != null)
+            {
+                initialRequestedResource.Quantity += trade.RequestedResourceQuantity;
+                await InventoryResourceRepository.UpdateUserResourceAsync(initialRequestedResource);
+            }
+            else // Otherwise create the entry in the database.
+            {
+                await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+                    id: Guid.NewGuid(),
+                    userId: trade.UserId,
+                    resourceId: trade.RequestedResourceId,
+                    quantity: trade.RequestedResourceQuantity
+                    ));
+            }
 
             // Get the user's given trade resource from the inventory.
             InventoryResource userGivenResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.GivenResourceId);
