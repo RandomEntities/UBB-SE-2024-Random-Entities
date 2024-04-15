@@ -20,7 +20,7 @@ namespace HarvestHaven.Utils
 
             // Construct the full path to the database file
             string databaseFilePath = Path.Combine(
-                projectRootDirectory, "Repository", "Database", "Database.mdf");
+                projectRootDirectory, "Database", "Database.mdf");
 
             // Check if the database file exists
             if (File.Exists(databaseFilePath))

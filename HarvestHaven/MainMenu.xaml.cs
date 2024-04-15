@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarvestHaven.Entities;
+using HarvestHaven.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,13 @@ namespace HarvestHaven
         public MainMenu()
         {
             InitializeComponent();
+            RefreshGUI();
+        }
+
+        private void RefreshGUI()
+        {
+            User? user = GameStateManager.GetCurrentUser();
+            if (user != null) GreetingLabel.Content = "Welcome, " + user.Username;
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)

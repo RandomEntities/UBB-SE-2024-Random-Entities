@@ -247,24 +247,31 @@
         <Image HorizontalAlignment="Center" Height="62" VerticalAlignment="Top" Width="900" Source="/Assets/Sprites/bar_icon.PNG" Stretch="Fill"/>
 
         <!--#region Coin Counter-->
-        <Label x:Name="CoinLabel" Content="150" HorizontalAlignment="Left" Margin="537,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="250" FlowDirection="RightToLeft"/>
+        <Label x:Name="coinLabel" Content="150" HorizontalAlignment="Left" Margin="537,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="250" FlowDirection="RightToLeft"/>
         <Image HorizontalAlignment="Left" Height="38" Margin="787,12,0,0" VerticalAlignment="Top" Width="42" Source="/Assets/Sprites/coin_icon.png"/>
         <!--#endregion-->
         <!--#region Water Counter-->
-        <Label x:Name="WaterLabel" Content="150" HorizontalAlignment="Left" Margin="248,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="211" FlowDirection="RightToLeft"/>
+        <Label x:Name="waterLabel" Content="150" HorizontalAlignment="Left" Margin="248,11,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" Width="211" FlowDirection="RightToLeft"/>
         <Image HorizontalAlignment="Left" Height="45" Margin="450,11,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Sprites/water_icon.png"/>
         <!--#endregion-->
         <!--#region Profile Button-->
         <Image HorizontalAlignment="Left" Height="58" VerticalAlignment="Top" Margin="0,2,0,0" Width="227" Source="/Assets/Sprites/light_bar_icon.PNG" Stretch="Fill"/>
-        <Label x:Name="ProfileLabel" Content="'Player Name'" HorizontalAlignment="Left" Margin="68,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22"/>
+        <Label x:Name="ProfileLabel" Content="'Profile Name'" HorizontalAlignment="Left" Margin="68,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="141"/>
         <Image HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Margin="18,13,0,0" Width="35" Source="/Assets/Sprites/sunglasses_face_icon.PNG" Stretch="Fill"/>
         <Rectangle x:Name="ProfileButton" HorizontalAlignment="Left" Height="58" Margin="0,2,0,0" VerticalAlignment="Top" Width="227" Fill="#00000000" Cursor="Hand" MouseDown="ProfileButton_MouseDown"/>
         <!--#endregion-->
         <!--#endregion-->
 
-        <StackPanel x:Name="BuyButton" Background="#FFDDDDDD" Margin="237,373,0,0" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Cursor="Hand">
+        <!--#region Templates-->
+        <StackPanel x:Name="BuyButton" Background="#FFDDDDDD" Margin="237,373,0,0" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Cursor="Hand" MouseEnter="BuyButton_MouseEnter" MouseLeave="BuyButton_MouseLeave" MouseDown="OpenBuyMarket">
             <Label Content="Buy" Height="17" FontSize="10" Padding="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label Content="crop/animal" Height="17" FontSize="10" Padding="0,2,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </StackPanel>
+        <Image x:Name="itemIcon" HorizontalAlignment="Left" Height="70" Margin="237,286,0,0" VerticalAlignment="Top" Width="70" Source="/Assets/Sprites/Items/carrot.png" Visibility="Hidden" Cursor="Hand"/>
+        <StackPanel x:Name="InteractionButtons" Margin="236,370,0,0" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" MouseEnter="InteractionButtons_MouseEnter" MouseLeave="InteractionButtons_MouseLeave">
+            <Button Content="Interact" Click="Interact"></Button>
+            <Button Content="Destroy" Margin="0,10,0,0" Click="Destroy"></Button>
+        </StackPanel>
+        <!--#endregion-->
     </Grid>
 </Window>
