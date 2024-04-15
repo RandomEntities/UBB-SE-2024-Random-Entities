@@ -28,7 +28,6 @@ namespace HarvestHaven
     public partial class Farm : Window
     {
         private List<Image> itemIcons = new List<Image>();
-        private StackPanel? buyButton;
 
         #region Image Paths
         private const string carrotPath = "Assets/Sprites/Items/carrot.png";
@@ -45,91 +44,16 @@ namespace HarvestHaven
         private int clickedRow;
         private int clickedColumn;
 
+        private bool onFarmCell;
+        private bool onBuyButton;
+
+        private bool onItemIcon;
+        private bool onInteractionButton;
+
         public Farm()
         {
             InitializeComponent();
             RefreshGUI();
-            Hello();
-        }
-
-        private async void Hello()
-        {
-                await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-                        id: Guid.NewGuid(),
-                        userId: GameStateManager.GetCurrentUserId(),
-                        resourceId: Guid.Parse("42f91ff4-6bc1-4e89-9aab-14d738f67f08"),
-                        quantity: 0
-                        ));;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("51ababa9-ef2f-4f5c-bf80-1a2eb6308c42"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("ae362eff-6245-4744-9b28-2d8e42a5c273"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("34ed9fba-09c3-4557-ad7a-88f65c7702c1"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("c99016b9-2b96-43af-8791-3becba627d9b"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("6d1bc4da-5b49-493d-a238-92f6618d3c15"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("6869409b-8bb7-4e30-bcab-97e9c8820d3f"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("843b9703-258c-40b3-aa50-9e763d0602e6"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-        id: Guid.NewGuid(),
-        userId: GameStateManager.GetCurrentUserId(),
-        resourceId: Guid.Parse("bd8e0d17-b20f-401e-946d-ab089ed94ae4"),
-        quantity: 0
-        )); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-id: Guid.NewGuid(),
-userId: GameStateManager.GetCurrentUserId(),
-resourceId: Guid.Parse("0a2e32a8-ab8d-46bb-9139-e08ee95f419f"),
-quantity: 0
-)); ;
-
-            await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-id: Guid.NewGuid(),
-userId: GameStateManager.GetCurrentUserId(),
-resourceId: Guid.Parse("5e9181b1-98c9-45ee-81ae-e50f2e80abb1"),
-quantity: 0
-)); ;
         }
 
         #region Screen Transitions
@@ -188,7 +112,7 @@ quantity: 0
 
         private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
         {
-            DestroyBuyButton();
+            HideBuyButton(true);
 
             BuyMarket market = new BuyMarket(this, clickedRow, clickedColumn);
 
@@ -204,7 +128,11 @@ quantity: 0
         public async void RefreshGUI()
         {
             User? user = GameStateManager.GetCurrentUser();
-            if (user != null) coinLabel.Content = user.Coins;
+            if (user != null)
+            {
+                coinLabel.Content = user.Coins;
+                ProfileLabel.Content = user.Username;
+            }
 
             #region Update Water
             try
@@ -218,6 +146,11 @@ quantity: 0
             }
             #endregion
 
+            #region Deleting Old Item Icons
+            foreach (Image img in itemIcons)
+                FarmGrid.Children.Remove(img);
+            #endregion
+
             #region Farm Rendering
             try
             {
@@ -226,7 +159,7 @@ quantity: 0
                 foreach (KeyValuePair<FarmCell, Item> pair in farmCells)
                 {
                     int buttonIndex = (pair.Key.Row - 1) * columnCount + pair.Key.Column;
-                    
+
                     Button associatedButton = (Button)FindName("Farm" + buttonIndex);
 
                     ItemType type = pair.Value.ItemType;
@@ -265,51 +198,109 @@ quantity: 0
 
             newImage.Source = new BitmapImage(new Uri("pack://application:,,,/" + imagePath));
 
+            newImage.MouseDown += ItemIcon_Click;
+            newImage.MouseLeave += ItemIcon_Leave;
+
+            newImage.Name = "Image" + associatedButton.Name;
+
             FarmGrid.Children.Add(newImage);
             itemIcons.Add(newImage);
         }
 
-        private void CreateBuyButton(Button button)
+        private void ItemIcon_Click(object sender, MouseButtonEventArgs e)
         {
-            StackPanel newButton = new StackPanel();
+            onItemIcon = true;
 
-            PropertyInfo[] properties = typeof(StackPanel).GetProperties();
-            foreach (PropertyInfo property in properties)
+            Image image = (Image)sender;
+            Thickness thickness = image.Margin;
+            thickness.Left += 60;
+            thickness.Top += 13;
+            InteractionButtons.Margin = thickness;
+
+            InteractionButtons.Visibility = Visibility.Visible;
+
+            SetRowColumn(image.Name);
+        }
+
+        private void ItemIcon_Leave(object sender, MouseEventArgs e)
+        {
+            onItemIcon = false;
+
+            HideInteractionButtons();
+        }
+
+        private void InteractionButtons_MouseEnter(object sender, MouseEventArgs e)
+        {
+            onInteractionButton = true;
+        }
+
+        private void InteractionButtons_MouseLeave(object sender, MouseEventArgs e)
+        {
+            onInteractionButton = false;
+
+            HideInteractionButtons();
+        }
+
+        private async void HideInteractionButtons(bool forced = false)
+        {
+            await Task.Delay(10);
+
+            if (onItemIcon || onInteractionButton && !forced) return;
+
+            InteractionButtons.Visibility = Visibility.Hidden;
+        }
+
+        private async void Interact(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                if (property.CanWrite) property.SetValue(newButton, property.GetValue(BuyButton));
+                await FarmService.InteractWithCell(this.clickedRow, this.clickedColumn);
+                HideInteractionButtons(true);
+                RefreshGUI();
             }
-
-            foreach (Label child in BuyButton.Children)
+            catch (Exception ex)
             {
-                Label newLabel = new Label();
-                properties = typeof(Label).GetProperties();
-                foreach (PropertyInfo property in properties)
-                {
-                    if (property.CanWrite) property.SetValue(newLabel, property.GetValue(child));
-                }
-                newButton.Children.Add(newLabel);
+                MessageBox.Show(ex.Message);
             }
-            newButton.Visibility = Visibility.Visible;
+        }
 
+        private async void Destroy(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await FarmService.DestroyCell(this.clickedRow, this.clickedColumn);
+                HideInteractionButtons(true);
+                RefreshGUI();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ShowBuyButton(Button button)
+        {
             Thickness thickness = button.Margin;
             thickness.Left += 1;
             thickness.Top += 15;
-            newButton.Margin = thickness;
+            BuyButton.Margin = thickness;
 
-            newButton.MouseDown += OpenBuyMarket;
+            BuyButton.Visibility = Visibility.Visible;
+        }
 
-            FarmGrid.Children.Add(newButton);
+        private async void HideBuyButton(bool forced = false)
+        {
+            await Task.Delay(10);
 
-            this.buyButton = newButton;
+            if (onFarmCell || onBuyButton && !forced) return;
 
-            SetRowColumn(button.Name);
+            BuyButton.Visibility = Visibility.Hidden;
         }
 
         private void SetRowColumn(string name)
         {
             string possibleNumber = name.Substring(name.Length - 2, 2);
-            int number = 0;
-            if (int.TryParse(possibleNumber, out number))
+            if (int.TryParse(possibleNumber, out int number))
             {
                 ConvertToRowColumn(number);
                 return;
@@ -337,32 +328,32 @@ quantity: 0
             }
         }
 
-        private void DestroyBuyButton()
-        {
-            if (buyButton != null)
-            {
-                FarmGrid.Children.Remove(buyButton);
-                buyButton = null;
-            }
-        }
-
         private void Farm_Click(object sender, RoutedEventArgs e)
         {
-            DestroyBuyButton();
-            CreateBuyButton((Button)sender);
+            onFarmCell = true;
+            Button button = (Button)sender;
+
+            ShowBuyButton(button);
+            SetRowColumn(button.Name);
         }
 
         private void Farm_MouseLeave(object sender, MouseEventArgs e)
         {
-            Point position = e.GetPosition((UIElement)sender);
+            onFarmCell = false;
 
-            HitTestResult hitTestResult = VisualTreeHelper.HitTest((UIElement)sender, position);
-            if (hitTestResult != null)
-            {
-                return;
-            }
+            HideBuyButton();
+        }
 
-            DestroyBuyButton();
+        private void BuyButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            onBuyButton = true;
+        }
+
+        private void BuyButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            onBuyButton = false;
+
+            HideBuyButton();
         }
     }
 }
