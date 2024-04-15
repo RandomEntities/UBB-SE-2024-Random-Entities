@@ -1,5 +1,6 @@
 ﻿using HarvestHaven.Entities;
 using HarvestHaven.Services;
+using HarvestHaven.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -72,6 +73,35 @@ namespace HarvestHaven
             return path;
         }
 
+        private void SwitchToCreateTrade()
+        {
+            this.Confirm_Cancel_Button.Content = "Confirm";
+            Give_TextBox.IsReadOnly = false;
+            Give_TextBox.Text = "0";
+            Get_TextBox.IsReadOnly = false;
+            Get_TextBox.Text = "0";
+            Give_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+            Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+        }
+
+        private async void SwitchToCancelTrade(Trade trade)
+        {
+            this.Confirm_Cancel_Button.Content = "Cancel";
+
+            Resource resource1 = await ResourceService.GetResourceByIdAsync(trade.GivenResourceId);
+            ResourceType resourceType1 = resource1.ResourceType;
+            Give_TextBox.IsReadOnly = true;
+            Give_TextBox.Text = trade.GivenResourceQuantity.ToString();
+            Give_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType1), UriKind.Relative));
+
+            Resource resource2 = await ResourceService.GetResourceByIdAsync(trade.RequestedResourceId);
+            ResourceType resourceType2 = resource2.ResourceType;
+            Get_TextBox.IsReadOnly = true;
+            Get_TextBox.Text = trade.RequestedResourceQuantity.ToString();
+            Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+            Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
+        }
+
         private async void GetAllTrades()
         {
             try
@@ -98,6 +128,21 @@ namespace HarvestHaven
             }
             catch (Exception e)
             {
+                MessageBox.Show(e.Message);
+            }
+            try
+            {
+                Trade playerTrade = await TradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());
+                if (playerTrade == null)
+                {
+                    SwitchToCreateTrade();
+                }
+                else
+                {
+                    SwitchToCancelTrade(playerTrade);
+                }
+            }
+            catch (Exception e) { 
                 MessageBox.Show(e.Message);
             }
         }
@@ -152,22 +197,34 @@ namespace HarvestHaven
                 {
                     int intGet = Convert.ToInt32(amountGet);
                     int intGive = Convert.ToInt32(amountGive);
-                    if(intGet < 0 || intGive < 0)
+                    if(intGet <= 0 || intGive <= 0)
                     {
                         throw new Exception();
                     }
                     await TradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
                     this.Confirm_Cancel_Button.Content = "Cancel";
+                    Give_TextBox.IsReadOnly = true;
+                    Get_TextBox.IsReadOnly = true;
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Input should be a positive number!");
                 }
             }
             else
             {
                 //Cancel trade
-                this.Confirm_Cancel_Button.Content = "Confirm";
+                try
+                {
+                    Trade playerTrade = await TradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());
+                    await TradeService.CancelTradeAsync(playerTrade.Id);
+
+                    SwitchToCreateTrade();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }
