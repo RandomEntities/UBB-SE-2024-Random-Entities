@@ -11,9 +11,12 @@ namespace HarvestHaven.Services
             return await TradeRepository.GetAllTradesAsync();
         }
 
-        public static async Task<List<Trade>> GetAllTradesExceptUser(Guid userId)
+        public static async Task<List<Trade>> GetAllTradesExceptLoggedUser()
         {
-            return await TradeRepository.GetAllTradesExceptUser(userId);
+            // Throw an exception if the user is not logged in.
+            if (GameStateManager.GetCurrentUser() == null) throw new Exception("User must be logged in!");
+
+            return await TradeRepository.GetAllTradesExceptUser(GameStateManager.GetCurrentUser().Id);
         }
 
         public static async Task<Trade> GetUserTradeAsync(Guid userId)
