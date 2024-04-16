@@ -62,7 +62,7 @@
                         </DockPanel>
                         <TextBlock Text="{Binding Description}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock x:Name="coins" Text="{Binding CoinAmount}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
+                            <TextBlock x:Name="coins" Text="{Binding RewardCoins}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
                             <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
                         </StackPanel>
                     </DockPanel>
@@ -95,11 +95,10 @@
                         <DockPanel.Background>
                             <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
                         </DockPanel.Background>
-                        <TextBlock x:Name="index" Text="{Binding Id}" Foreground="White" FontSize="19" Margin="12,13,0,0"/>
                         <Image Source="{StaticResource FaceImage}" Height="35" Width="35" Margin="9,0,9,0"></Image>
-                        <TextBlock x:Name="username" Text="{Binding UserName}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
+                        <TextBlock x:Name="username" Text="{Binding Username}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock x:Name="coins" Text="{Binding NumberOfCoins}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
+                            <TextBlock x:Name="coins" Text="{Binding Coins}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
                             <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
                         </StackPanel>
                     </DockPanel>
@@ -128,7 +127,7 @@
                         <DockPanel.Background>
                             <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
                         </DockPanel.Background>
-                        <TextBlock Text="{Binding Description}" Foreground="White" FontSize="16" Margin="12,17,0,0"/>
+                        <TextBlock Text="{Binding Message}" Foreground="White" FontSize="16" Margin="12,17,0,0"/>
                         <Image Source="{StaticResource RedXImage}" HorizontalAlignment="Right" Width="35" Margin="0,0,12,0"></Image>
                     </DockPanel>
                 </DataTemplate>
