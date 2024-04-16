@@ -88,6 +88,9 @@ namespace HarvestHaven.Services
             // Update the farm cell's last interaction time in the database.
             farmCell.LastTimeInteracted = DateTime.UtcNow;
             await FarmCellRepository.UpdateFarmCellAsync(farmCell);
+
+            // Check achievements.
+            await AchievementService.CheckInventoryAchievements();
         }
 
         public static async Task DestroyCell(int row, int column)
@@ -133,6 +136,9 @@ namespace HarvestHaven.Services
 
             // Remove the cell from the database.
             await FarmCellRepository.DeleteFarmCellAsync(farmCell.Id);
+
+            // Check achievements.
+            await AchievementService.CheckInventoryAchievements();
         }
 
         public static async Task EnchanceCellForUser(Guid targetUserId, int row, int column)
@@ -141,14 +147,14 @@ namespace HarvestHaven.Services
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null) throw new Exception("User must be logged in!");
 
-            // Throw an error if the user wants to enhance his own cell.
+            // Throw an exception if the user wants to enhance his own cell.
             if (GameStateManager.GetCurrentUserId() == targetUserId) throw new Exception("You cannot enhance you own cell!");
 
             // Get the farm cell from the given position.
             FarmCell farmCell = await FarmCellRepository.GetUserFarmCellByPositionAsync(targetUserId, row, column);
             if (farmCell == null) throw new Exception("No farm cell found at the given position for the target user in the database!");
 
-            // Throw an error if the cell is already enhanced.        
+            // Throw an exception if the cell is already enhanced.        
             if (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS)) throw new Exception("Cell is already enhanced!");
             #endregion
 
