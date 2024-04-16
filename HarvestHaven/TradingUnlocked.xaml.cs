@@ -4,6 +4,7 @@ using HarvestHaven.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static HarvestHaven.TradingInventory;
 using static HarvestHaven.TradingUnlocked;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -52,6 +54,20 @@ namespace HarvestHaven
             InitializeComponent();
 
             GetAllTrades();
+        }
+
+        public void ChangeIcon(InventoryType inventoryType,ResourceType resourceType)
+        {
+            if (inventoryType == InventoryType.Get)
+            {
+                Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType), UriKind.Relative));
+                getResource = resourceType; 
+            }
+            else if (inventoryType == InventoryType.Give)
+            {
+                Give_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType), UriKind.Relative));
+                giveResource = resourceType;
+            }
         }
 
         private string GetResourcePath(ResourceType resourceType)
@@ -174,16 +190,36 @@ namespace HarvestHaven
         {
             //Open inventory and select the resource you want to give
             //and return the resource type
-            Give_Button.Source = new BitmapImage(new Uri(chickenEggPath, UriKind.Relative));
-            giveResource = ResourceType.ChickenEgg;
+
+            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give);
+
+            inventoryScreen.Top = this.Top;
+            inventoryScreen.Left = this.Left;
+
+            inventoryScreen.Show();
+
+            this.Hide();
+
+            //Give_Button.Source = new BitmapImage(new Uri(chickenEggPath, UriKind.Relative));
+            //giveResource = ResourceType.ChickenEgg;
         }
 
         private void Get_Button_Click(object sender, RoutedEventArgs e)
         {
-            //Open inventory and select the resource you want to get
+            //Open inventory and select the resource you want to give
             //and return the resource type
-            Get_Button.Source = new BitmapImage(new Uri(chickenPath, UriKind.Relative));
-            getResource = ResourceType.ChickenMeat;
+
+            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get);
+
+            inventoryScreen.Top = this.Top;
+            inventoryScreen.Left = this.Left;
+
+            inventoryScreen.Show();
+
+            this.Hide();
+
+            //Give_Button.Source = new BitmapImage(new Uri(chickenEggPath, UriKind.Relative));
+            //giveResource = ResourceType.ChickenEgg;
         }
 
         private async void Confirm_Cancel_Button_Click(object sender, RoutedEventArgs e)
