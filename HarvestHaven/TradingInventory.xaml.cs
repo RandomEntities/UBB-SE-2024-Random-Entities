@@ -22,12 +22,14 @@ namespace HarvestHaven
     public partial class TradingInventory : Window
     {
         private TradingUnlocked unlockedScreen;
-        private Image changeIcon;
 
-        public TradingInventory(TradingUnlocked unlockedScreen, Image changeIcon)
+        public enum InventoryType { Give, Get };
+        private InventoryType inventoryType;
+
+        public TradingInventory(TradingUnlocked unlockedScreen, InventoryType inventoryType)
         {
             this.unlockedScreen = unlockedScreen;
-            this.changeIcon = changeIcon;
+            this.inventoryType = inventoryType;
             InitializeComponent();
             LoadInventory();
         }
@@ -79,7 +81,7 @@ namespace HarvestHaven
 
         public void AssignResourceIcon(ResourceType resourceType)
         {
-            //unlockedScreen.ChangeIcon(changeIcon, resourceType);
+            unlockedScreen.ChangeIcon(inventoryType, resourceType);
 
             BackToTrading();
         }
