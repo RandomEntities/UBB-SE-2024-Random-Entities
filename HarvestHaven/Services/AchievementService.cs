@@ -3,6 +3,7 @@ using HarvestHaven.Entities;
 using System.Diagnostics;
 using HarvestHaven.Utils;
 using System.Windows;
+using System.Data.Common;
 
 namespace HarvestHaven.Services
 {
@@ -52,10 +53,22 @@ namespace HarvestHaven.Services
 
             #region Put 5 cows on grids so it makes an X shape! d532eeca-7163-4b27-8135-dbca4cee057a
 
-            bool IsCowAtPosition(int row, int column, List<FarmCell> farmCells)
+            async Task<bool> IsCowAtPosition(int row, int column, List<FarmCell> farmCells)
             {
-                return farmCells.Any(cell => cell.Row == row && cell.Column == column &&
-                                               ItemRepository.GetItemByIdAsync(cell.ItemId).Result?.ItemType == ItemType.Cow);
+                // Go throguh all the farm cells.
+                foreach(FarmCell cell in farmCells)
+                {
+                    // Skip the ones that do not match the given row and the column.
+                    if(cell.Row != row || cell.Column != column) continue;
+
+                    // Get the item from the cell.
+                    Item cellItem = await ItemRepository.GetItemByIdAsync(cell.ItemId);
+
+                    return cellItem?.ItemType == ItemType.Cow;
+                }
+
+                // Return false if the cell is not found.
+                return false;
             }
 
             // Go through all the farm cells.
@@ -64,12 +77,12 @@ namespace HarvestHaven.Services
                 // Get the item from the cell and skip null items or non-cow items.
                 Item item = await ItemRepository.GetItemByIdAsync(cell.ItemId);
                 if (item == null || item.ItemType != ItemType.Cow) continue;
-              
+
                 // Check if the current cell is a potential center of the X shape.
-                if (IsCowAtPosition(cell.Row - 1, cell.Column - 1, farmCells) &&
-                    IsCowAtPosition(cell.Row - 1, cell.Column + 1, farmCells) &&
-                    IsCowAtPosition(cell.Row + 1, cell.Column - 1, farmCells) &&
-                    IsCowAtPosition(cell.Row + 1, cell.Column + 1, farmCells))
+                if (await IsCowAtPosition(cell.Row - 1, cell.Column - 1, farmCells) &&
+                    await IsCowAtPosition(cell.Row - 1, cell.Column + 1, farmCells) &&
+                    await IsCowAtPosition(cell.Row + 1, cell.Column - 1, farmCells) &&
+                    await IsCowAtPosition(cell.Row + 1, cell.Column + 1, farmCells))
                 {
                     await AddUserAchievement(Guid.Parse("d532eeca-7163-4b27-8135-dbca4cee057a"));
                     break;
@@ -107,7 +120,7 @@ namespace HarvestHaven.Services
             ItemType[] targetItemTypes = { ItemType.CarrotSeeds, ItemType.WheatSeeds, ItemType.TomatoSeeds, ItemType.Sheep, ItemType.Chicken, ItemType.Cow };
 
             // Create a structure to mark row and column positions.
-            bool[,] markedPositions = new bool[Constants.FARM_SIZE, Constants.FARM_SIZE];
+            bool[,] markedPositions = new bool[Constants.FARM_SIZE + 1, Constants.FARM_SIZE + 1];
 
             // Go through all the farm cells.
             foreach (FarmCell cell in farmCells)
