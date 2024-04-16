@@ -66,9 +66,17 @@ namespace HarvestHaven
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            //VisitedFarm visitedFarm = new VisitedFarm(Guid.Parse("ff3b57f1-8830-4bc2-ae8c-bee2dde4db6d"), this);
+            //
+            //visitedFarm.Top = this.Top;
+            //visitedFarm.Left = this.Left;
+            //
+            //visitedFarm.Show();
+            //this.Hide();
+
             farmScreen.Top = this.Top;
             farmScreen.Left = this.Left;
-
+            
             farmScreen.Show();
             this.Close();
         }

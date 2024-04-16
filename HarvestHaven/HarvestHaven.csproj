@@ -61,4 +61,10 @@
 		<Resource Include="Assets\Sprites\wooden_sign_icon.png" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="VisitedFarm.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
