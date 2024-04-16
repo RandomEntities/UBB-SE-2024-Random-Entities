@@ -23,5 +23,20 @@ namespace HarvestHaven
         {
             InitializeComponent();
         }
+
+        private void CommentTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_Send(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
