@@ -26,6 +26,7 @@ namespace HarvestHaven
         {
             User user = await UserService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));
             GameStateManager.SetCurrentUser(user);
+            await UserService.UpdateUserWater();
         }         
     }
 

@@ -32,13 +32,12 @@ namespace HarvestHaven.Services
             // Get all the user farm cells from the database.
             List<FarmCell> farmCells = await FarmCellRepository.GetUserFarmCellsAsync(GameStateManager.GetCurrentUserId());
 
-            // Throw an error in case the cell is occupied.
+            // Throw an exception in case the cell is occupied.
             foreach(FarmCell cell in farmCells)           
                 if(cell.Row == row && cell.Column == column) 
                     throw new Exception("Cell is occupied.");
 
             #endregion
-
 
             // Add a new farm cell in the database.
             await FarmCellRepository.AddFarmCellAsync(new FarmCell(
@@ -51,11 +50,16 @@ namespace HarvestHaven.Services
                 lastTimeInteracted: null
                 ));
 
-            // Update the user coins both locally and in the database.
+            // Update the user coins and number of items bought both locally and in the database.
             User newUser = GameStateManager.GetCurrentUser();
             newUser.Coins -= marketBuyItem.BuyPrice;
+            newUser.NrItemsBought++;
             await UserRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
+
+            // Check achievements.
+            await AchievementService.CheckFarmAchievements();
+            await AchievementService.CheckMarketAchievements();
         }
 
         public static async Task SellResource(ResourceType resourceType)
@@ -75,7 +79,7 @@ namespace HarvestHaven.Services
             // Get the user's inventory resource from the database.
             InventoryResource? inventoryResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
 
-            // Throw an error if the user doesn's have that resource.
+            // Throw an exception if the user doesn's have that resource.
             if (inventoryResource == null || inventoryResource.Quantity <= 0) throw new Exception("You do not own any " + resource.ResourceType.ToString() + "!");
             #endregion
 
@@ -88,6 +92,9 @@ namespace HarvestHaven.Services
             newUser.Coins += marketSellResouce.SellPrice;
             await UserRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
+
+            // Check achievements.
+            await AchievementService.CheckInventoryAchievements();
         }
     }
 }
