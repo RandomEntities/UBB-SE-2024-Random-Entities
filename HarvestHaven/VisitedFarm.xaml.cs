@@ -47,11 +47,8 @@ namespace HarvestHaven
         private int clickedRow;
         private int clickedColumn;
 
-        private bool onFarmCell;
-        private bool onBuyButton;
-
         private bool onItemIcon;
-        private bool onInteractionButton;
+        private bool onEnhanceButton;
 
         public VisitedFarm(Guid userId, ProfileTab profileTab)
         {
@@ -138,11 +135,10 @@ namespace HarvestHaven
 
             Image image = (Image)sender;
             Thickness thickness = image.Margin;
-            thickness.Left += 60;
-            thickness.Top += 13;
-            InteractionButtons.Margin = thickness;
+            thickness.Top += 15;
+            EnhanceButton.Margin = thickness;
 
-            InteractionButtons.Visibility = Visibility.Visible;
+            EnhanceButton.Visibility = Visibility.Visible;
 
             SetRowColumn(image.Name);
         }
@@ -151,75 +147,32 @@ namespace HarvestHaven
         {
             onItemIcon = false;
 
-            HideInteractionButtons();
+            HideEnhanceButton();
         }
 
-        private void InteractionButtons_MouseEnter(object sender, MouseEventArgs e)
+        private async void Enhance(object sender, RoutedEventArgs e)
         {
-            onInteractionButton = true;
+            MessageBox.Show("Enhancing!");
+
+            //try
+            //{
+            //    await FarmService.InteractWithCell(this.clickedRow, this.clickedColumn);
+            //    HideEnhanceButton(true);
+            //    RefreshGUI();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
-        private void InteractionButtons_MouseLeave(object sender, MouseEventArgs e)
-        {
-            onInteractionButton = false;
-
-            HideInteractionButtons();
-        }
-
-        private async void HideInteractionButtons(bool forced = false)
-        {
-            await Task.Delay(10);
-
-            if (onItemIcon || onInteractionButton && !forced) return;
-
-            InteractionButtons.Visibility = Visibility.Hidden;
-        }
-
-        private async void Interact(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await FarmService.InteractWithCell(this.clickedRow, this.clickedColumn);
-                HideInteractionButtons(true);
-                RefreshGUI();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private async void Destroy(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await FarmService.DestroyCell(this.clickedRow, this.clickedColumn);
-                HideInteractionButtons(true);
-                RefreshGUI();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void ShowBuyButton(Button button)
-        {
-            Thickness thickness = button.Margin;
-            thickness.Left += 1;
-            thickness.Top += 15;
-            BuyButton.Margin = thickness;
-
-            BuyButton.Visibility = Visibility.Visible;
-        }
-
-        private async void HideBuyButton(bool forced = false)
+        private async void HideEnhanceButton(bool forced = false)
         {
             await Task.Delay(10);
 
-            if (onFarmCell || onBuyButton && !forced) return;
+            if (onItemIcon || onEnhanceButton && !forced) return;
 
-            BuyButton.Visibility = Visibility.Hidden;
+            EnhanceButton.Visibility = Visibility.Hidden;
         }
 
         private void SetRowColumn(string name)
@@ -253,32 +206,16 @@ namespace HarvestHaven
             }
         }
 
-        private void Farm_Click(object sender, RoutedEventArgs e)
+        private void EnhanceButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            onFarmCell = true;
-            Button button = (Button)sender;
-
-            ShowBuyButton(button);
-            SetRowColumn(button.Name);
+            onEnhanceButton = true;
         }
 
-        private void Farm_MouseLeave(object sender, MouseEventArgs e)
+        private void EnhanceButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            onFarmCell = false;
+            onEnhanceButton = false;
 
-            HideBuyButton();
-        }
-
-        private void BuyButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            onBuyButton = true;
-        }
-
-        private void BuyButton_MouseLeave(object sender, MouseEventArgs e)
-        {
-            onBuyButton = false;
-
-            HideBuyButton();
+            HideEnhanceButton();
         }
 
         private void BackButton_MouseDown(object sender, MouseButtonEventArgs e)

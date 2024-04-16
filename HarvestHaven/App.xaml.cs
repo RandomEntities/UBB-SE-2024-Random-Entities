@@ -18,11 +18,8 @@ namespace HarvestHaven
 
             Task.Delay(100);
 
-            //MainMenu mainMenu = new MainMenu();
-            //mainMenu.Show();
-
-            VisitedFarm visitedFarm = new VisitedFarm();
-            visitedFarm.Show();
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
         }      
         
         private async void SetCurrentUser()
