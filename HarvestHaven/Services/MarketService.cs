@@ -57,6 +57,7 @@ namespace HarvestHaven.Services
             await UserRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
+            return;
             // Check achievements.
             await AchievementService.CheckFarmAchievements();
             await AchievementService.CheckMarketAchievements();

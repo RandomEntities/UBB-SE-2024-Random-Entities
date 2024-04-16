@@ -32,182 +32,182 @@
         <Rectangle HorizontalAlignment="Left" Height="445" Margin="226,63,0,0" VerticalAlignment="Top" Width="445" Fill="#FF0D630A"/>
         <Rectangle HorizontalAlignment="Left" Height="425" Margin="236,73,0,0" VerticalAlignment="Top" Width="425" Fill="#FFFFF7A1"/>
 
-        <Button x:Name="Farm1" Content="" HorizontalAlignment="Left" Margin="236,73,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None">
+        <Button x:Name="Farm1" Content="" HorizontalAlignment="Left" Margin="236,73,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm2" Content="" HorizontalAlignment="Left" Margin="307,73,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm2" Content="" HorizontalAlignment="Left" Margin="307,73,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm3" Content="" HorizontalAlignment="Left" Margin="378,73,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm3" Content="" HorizontalAlignment="Left" Margin="378,73,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm4" Content="" HorizontalAlignment="Left" Margin="449,73,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm4" Content="" HorizontalAlignment="Left" Margin="449,73,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm5" Content="" HorizontalAlignment="Left" Margin="520,73,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm5" Content="" HorizontalAlignment="Left" Margin="520,73,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm6" Content="" HorizontalAlignment="Left" Margin="591,73,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm6" Content="" HorizontalAlignment="Left" Margin="591,73,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm7" Content="" HorizontalAlignment="Left" Margin="236,144,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm7" Content="" HorizontalAlignment="Left" Margin="236,144,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm8" Content="" HorizontalAlignment="Left" Margin="307,144,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm8" Content="" HorizontalAlignment="Left" Margin="307,144,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm9" Content="" HorizontalAlignment="Left" Margin="378,144,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm9" Content="" HorizontalAlignment="Left" Margin="378,144,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm10" Content="" HorizontalAlignment="Left" Margin="449,144,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm10" Content="" HorizontalAlignment="Left" Margin="449,144,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm11" Content="" HorizontalAlignment="Left" Margin="520,144,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm11" Content="" HorizontalAlignment="Left" Margin="520,144,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm12" Content="" HorizontalAlignment="Left" Margin="591,144,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm12" Content="" HorizontalAlignment="Left" Margin="591,144,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm13" Content="" HorizontalAlignment="Left" Margin="236,215,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm13" Content="" HorizontalAlignment="Left" Margin="236,215,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm14" Content="" HorizontalAlignment="Left" Margin="307,215,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm14" Content="" HorizontalAlignment="Left" Margin="307,215,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm15" Content="" HorizontalAlignment="Left" Margin="378,215,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm15" Content="" HorizontalAlignment="Left" Margin="378,215,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm16" Content="" HorizontalAlignment="Left" Margin="449,215,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm16" Content="" HorizontalAlignment="Left" Margin="449,215,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm17" Content="" HorizontalAlignment="Left" Margin="520,215,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm17" Content="" HorizontalAlignment="Left" Margin="520,215,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm18" Content="" HorizontalAlignment="Left" Margin="591,215,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm18" Content="" HorizontalAlignment="Left" Margin="591,215,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm19" Content="" HorizontalAlignment="Left" Margin="236,286,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm19" Content="" HorizontalAlignment="Left" Margin="236,286,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm20" Content="" HorizontalAlignment="Left" Margin="307,286,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm20" Content="" HorizontalAlignment="Left" Margin="307,286,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm21" Content="" HorizontalAlignment="Left" Margin="378,286,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm21" Content="" HorizontalAlignment="Left" Margin="378,286,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm22" Content="" HorizontalAlignment="Left" Margin="449,286,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm22" Content="" HorizontalAlignment="Left" Margin="449,286,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm23" Content="" HorizontalAlignment="Left" Margin="520,286,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm23" Content="" HorizontalAlignment="Left" Margin="520,286,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm24" Content="" HorizontalAlignment="Left" Margin="591,286,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm24" Content="" HorizontalAlignment="Left" Margin="591,286,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm25" Content="" HorizontalAlignment="Left" Margin="236,357,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm25" Content="" HorizontalAlignment="Left" Margin="236,357,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm26" Content="" HorizontalAlignment="Left" Margin="307,357,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm26" Content="" HorizontalAlignment="Left" Margin="307,357,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm27" Content="" HorizontalAlignment="Left" Margin="378,357,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm27" Content="" HorizontalAlignment="Left" Margin="378,357,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm28" Content="" HorizontalAlignment="Left" Margin="449,357,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm28" Content="" HorizontalAlignment="Left" Margin="449,357,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm29" Content="" HorizontalAlignment="Left" Margin="520,357,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm29" Content="" HorizontalAlignment="Left" Margin="520,357,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm30" Content="" HorizontalAlignment="Left" Margin="591,357,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm30" Content="" HorizontalAlignment="Left" Margin="591,357,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm31" Content="" HorizontalAlignment="Left" Margin="236,428,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm31" Content="" HorizontalAlignment="Left" Margin="236,428,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm32" Content="" HorizontalAlignment="Left" Margin="307,428,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm32" Content="" HorizontalAlignment="Left" Margin="307,428,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm33" Content="" HorizontalAlignment="Left" Margin="378,428,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm33" Content="" HorizontalAlignment="Left" Margin="378,428,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm34" Content="" HorizontalAlignment="Left" Margin="449,428,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm34" Content="" HorizontalAlignment="Left" Margin="449,428,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm35" Content="" HorizontalAlignment="Left" Margin="520,428,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm35" Content="" HorizontalAlignment="Left" Margin="520,428,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Farm36" Content="" HorizontalAlignment="Left" Margin="591,428,0,0" VerticalAlignment="Top" Height="70" Width="70" Cursor="None" >
+        <Button x:Name="Farm36" Content="" HorizontalAlignment="Left" Margin="591,428,0,0" VerticalAlignment="Top" Height="70" Width="70" IsEnabled="False" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/dirt_icon.png"/>
             </Button.Background>
