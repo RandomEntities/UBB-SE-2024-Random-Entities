@@ -37,6 +37,7 @@ namespace HarvestHaven
             farmScreen.Top = this.Top;
             farmScreen.Left = this.Left;
 
+            farmScreen.RefreshGUI();
             farmScreen.Show();
             this.Close();
         }

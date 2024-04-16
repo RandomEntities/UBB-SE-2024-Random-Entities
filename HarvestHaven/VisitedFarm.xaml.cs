@@ -135,7 +135,7 @@ namespace HarvestHaven
 
             Image image = (Image)sender;
             Thickness thickness = image.Margin;
-            thickness.Top += 15;
+            thickness.Top += 20;
             EnhanceButton.Margin = thickness;
 
             EnhanceButton.Visibility = Visibility.Visible;
