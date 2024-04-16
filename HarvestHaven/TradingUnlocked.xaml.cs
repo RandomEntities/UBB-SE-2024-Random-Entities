@@ -122,7 +122,7 @@ namespace HarvestHaven
         {
             try
             {
-                tradeList = await TradeService.GetAllTradesExceptLoggedUser();
+                tradeList = await TradeService.GetAllTradesExceptCreatedByLoggedUser();
                 foreach (Trade item in tradeList)
                 {
                     TradingPanel tradingPanel = new(item);
