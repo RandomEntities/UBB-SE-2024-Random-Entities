@@ -74,16 +74,34 @@ namespace HarvestHaven.Services
             Resource requestedResource = await ResourceRepository.GetResourceByIdAsync(trade.RequestedResourceId);
             if (requestedResource == null) throw new Exception("Requested resource not found in the database!");
 
-            // Get the user's requested trade resource from the inventory and throw an error in case the user doesn't have enough quantity.
+            // Get the user's requested trade resource from the inventory and Throw an exception in case the user doesn't have enough quantity.
             InventoryResource userRequestedResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), requestedResource.Id);
             if (userRequestedResource == null || userRequestedResource.Quantity < trade.RequestedResourceQuantity) throw new Exception($"You don't have that ammount of {requestedResource.ResourceType.ToString()}!");
             #endregion
 
-            // Update the user's inventory resources by removing the requested trade resource quantity and adding the given trade resource quantity.
+            // Update the user's inventory resources by removing the requested trade resource quantity.
             userRequestedResource.Quantity -= trade.RequestedResourceQuantity;
-            await InventoryResourceRepository.UpdateUserResourceAsync(userRequestedResource);
+            await InventoryResourceRepository.UpdateUserResourceAsync(userRequestedResource);      
 
-            // Get the user's requested trade resource from the inventory of the user who iniated the trade.
+            // Get the user's given trade resource from the inventory.
+            InventoryResource userGivenResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.GivenResourceId);
+            // If the user already has this resource in his inventory simply update the quantity.
+            if (userGivenResource != null)
+            {
+                userGivenResource.Quantity += trade.GivenResourceQuantity;
+                await InventoryResourceRepository.UpdateUserResourceAsync(userGivenResource);
+            }
+            else // Otherwise create the entry in the database.
+            {
+                await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+                    id: Guid.NewGuid(),
+                    userId: GameStateManager.GetCurrentUserId(),
+                    resourceId: trade.GivenResourceId,
+                    quantity: trade.GivenResourceQuantity
+                    ));
+            }
+
+            // FOR THE OTHER USER INVOLVED. Get the user's requested trade resource from the inventory of the user who iniated the trade.
             InventoryResource initialRequestedResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(trade.UserId, trade.RequestedResourceId);
 
             // If the user already has this resource in his inventory simply update the quantity.
@@ -102,28 +120,24 @@ namespace HarvestHaven.Services
                     ));
             }
 
-            // Get the user's given trade resource from the inventory.
-            InventoryResource userGivenResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.GivenResourceId);
-
-            // If the user already has this resource in his inventory simply update the quantity.
-            if (userGivenResource != null)
-            {
-                userGivenResource.Quantity += trade.GivenResourceQuantity;
-                await InventoryResourceRepository.UpdateUserResourceAsync(userGivenResource);
-            }
-            else // Otherwise create the entry in the database.
-            {
-                await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
-                    id: Guid.NewGuid(),
-                    userId: GameStateManager.GetCurrentUserId(),
-                    resourceId: trade.GivenResourceId,
-                    quantity: trade.GivenResourceQuantity
-                    ));
-            }
-
-
             // Remove the trade from the database.
             await TradeRepository.DeleteTradeAsync(trade.Id);
+
+            // Increase the other user's number of trades.
+            User otherUser = await UserRepository.GetUserByIdAsync(trade.UserId);
+            if (otherUser == null) throw new Exception("The user that created the trade with cannot be found in the database.");
+            otherUser.NrTradesPerformed++;
+            await UserRepository.UpdateUserAsync(otherUser);
+
+            // Update the user's number of trades in the database and locally.
+            User newUser = GameStateManager.GetCurrentUser();
+            newUser.NrTradesPerformed++;
+            await UserRepository.UpdateUserAsync(newUser);
+            GameStateManager.SetCurrentUser(newUser);
+
+            // Check achievements.
+            await AchievementService.CheckTradeAchievements(trade.UserId);
+            await AchievementService.CheckInventoryAchievements();
         }
 
         public static async Task CancelTradeAsync(Guid tradeId)
@@ -158,6 +172,9 @@ namespace HarvestHaven.Services
 
             // Remove the trade from the database.
             await TradeRepository.DeleteTradeAsync(trade.Id);
+
+            // Check achievements.
+            await AchievementService.CheckInventoryAchievements();
         }
     }
 }
