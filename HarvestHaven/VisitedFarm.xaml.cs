@@ -152,18 +152,16 @@ namespace HarvestHaven
 
         private async void Enhance(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Enhancing!");
-
-            //try
-            //{
-            //    await FarmService.InteractWithCell(this.clickedRow, this.clickedColumn);
-            //    HideEnhanceButton(true);
-            //    RefreshGUI();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                await FarmService.EnchanceCellForUser(userId, clickedRow, clickedColumn);
+                HideEnhanceButton(true);
+                RefreshGUI();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private async void HideEnhanceButton(bool forced = false)
