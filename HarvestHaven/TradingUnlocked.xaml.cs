@@ -96,8 +96,12 @@ namespace HarvestHaven
             Give_TextBox.Text = "0";
             Get_TextBox.IsReadOnly = false;
             Get_TextBox.Text = "0";
+            getResource = ResourceType.Water;
+            giveResource = ResourceType.Water;
             Give_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
             Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+            this.Get_Button.IsEnabled = true;
+            this.Give_Button.IsEnabled = true;
         }
 
         private async void SwitchToCancelTrade(Trade trade)
@@ -116,6 +120,9 @@ namespace HarvestHaven
             Get_TextBox.Text = trade.RequestedResourceQuantity.ToString();
             Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
             Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
+            
+            this.Get_Button.IsEnabled = false;
+            this.Give_Button.IsEnabled = false;
         }
 
         private async void GetAllTrades()
@@ -200,8 +207,6 @@ namespace HarvestHaven
 
             this.Hide();
 
-            //Give_Button.Source = new BitmapImage(new Uri(chickenEggPath, UriKind.Relative));
-            //giveResource = ResourceType.ChickenEgg;
         }
 
         private void Get_Button_Click(object sender, RoutedEventArgs e)
@@ -218,8 +223,6 @@ namespace HarvestHaven
 
             this.Hide();
 
-            //Give_Button.Source = new BitmapImage(new Uri(chickenEggPath, UriKind.Relative));
-            //giveResource = ResourceType.ChickenEgg;
         }
 
         private async void Confirm_Cancel_Button_Click(object sender, RoutedEventArgs e)
@@ -235,16 +238,25 @@ namespace HarvestHaven
                     int intGive = Convert.ToInt32(amountGive);
                     if(intGet <= 0 || intGive <= 0)
                     {
-                        throw new Exception();
+                        throw new Exception("Input should be a positive integer!");
+                    }
+                    if((getResource == ResourceType.Water) || (giveResource == ResourceType.Water))
+                    {
+                        throw new Exception("Select the resources to give and get!");
                     }
                     await TradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
                     this.Confirm_Cancel_Button.Content = "Cancel";
                     Give_TextBox.IsReadOnly = true;
                     Get_TextBox.IsReadOnly = true;
+                    this.Get_Button.IsEnabled = false;
+                    this.Give_Button.IsEnabled = false;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Input should be a positive number!");
+                    if (ex.Message == "Input should be a positive integer!" || ex.Message == "Select the resources to give and get!")
+                        MessageBox.Show(ex.Message);
+                    else MessageBox.Show("Input should be a positive integer!");
+
                 }
             }
             else
