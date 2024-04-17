@@ -27,12 +27,12 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Assets/Sprites/market_background_locked.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Button x:Name="Unlock_Button" Content="Unlock" HorizontalAlignment="Left" Margin="128,313,0,0" VerticalAlignment="Top" Height="100" Width="250" Padding="0,0,0,0" FontWeight="Bold" FontSize="30">
+        <Button x:Name="Unlock_Button" Content="Unlock" HorizontalAlignment="Left" Margin="128,313,0,0" VerticalAlignment="Top" Height="100" Width="250" Padding="0,0,0,0" FontWeight="Bold" FontSize="30" Click="Unlock_Button_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/gray_bar_icon.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Back_Button" Content="Back" HorizontalAlignment="Left" Margin="493,313,0,0" VerticalAlignment="Top" Height="100" Width="250" Padding="0,0,0,0" FontWeight="Bold" FontSize="30">
+        <Button x:Name="Back_Button" Content="Back" HorizontalAlignment="Left" Margin="493,313,0,0" VerticalAlignment="Top" Height="100" Width="250" Padding="0,0,0,0" FontWeight="Bold" FontSize="30" Click="Back_Button_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/gray_bar_icon.png"/>
             </Button.Background>

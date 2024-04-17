@@ -100,14 +100,30 @@ namespace HarvestHaven
 
         private void TradingHallButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TradingUnlocked tradingScreen = new TradingUnlocked(this);
+            bool unlocked = UserService.IsTradeHallUnlocked();
 
-            tradingScreen.Top = this.Top;
-            tradingScreen.Left = this.Left;
+            if (unlocked)
+            {
+                TradingUnlocked tradingScreen = new TradingUnlocked(this);
 
-            tradingScreen.Show();
+                tradingScreen.Top = this.Top;
+                tradingScreen.Left = this.Left;
 
-            this.Hide();
+                tradingScreen.Show();
+
+                this.Hide();
+            }
+            else
+            {
+                TradingLocked tradingScreen = new TradingLocked(this);
+
+                tradingScreen.Top = this.Top;
+                tradingScreen.Left = this.Left;
+
+                tradingScreen.Show();
+
+                this.Hide();
+            }
         }
 
         private void OpenBuyMarket(object sender, MouseButtonEventArgs e)
