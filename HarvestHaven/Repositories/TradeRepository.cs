@@ -1,6 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
 using HarvestHaven.Utils;
 using HarvestHaven.Entities;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace HarvestHaven.Repositories
 {
@@ -38,19 +41,23 @@ namespace HarvestHaven.Repositories
             return trades;
         }
 
-        public static async Task<List<Trade>> GetAllTradesExceptUser(Guid userId)
+        public static async Task<List<Trade>> GetAllTradesExceptCreatedByUser(Guid userId)
         {
             List<Trade> trades = new List<Trade>();
+            string query = "SELECT * FROM Trades WHERE UserId <> @UserId";
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades WHERE UserId <> '" + userId + "'", connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@UserId", userId);
+
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
-                            trades.Add(new Trade
+                            Trade trade = new Trade
                             (
                                 id: (Guid)reader["Id"],
                                 userId: (Guid)reader["UserId"],
@@ -60,7 +67,8 @@ namespace HarvestHaven.Repositories
                                 requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
                                 createdTime: (DateTime)reader["CreatedTime"],
                                 isCompleted: (bool)reader["IsCompleted"]
-                            ));
+                            );
+                            trades.Add(trade);
                         }
                     }
                 }
