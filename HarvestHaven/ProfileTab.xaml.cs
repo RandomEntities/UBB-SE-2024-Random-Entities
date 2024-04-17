@@ -1,5 +1,6 @@
 ﻿using HarvestHaven.Entities;
 using HarvestHaven.Services;
+using HarvestHaven.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,11 @@ namespace HarvestHaven
                 MessageBox.Show(e.Message);
             }
         }
+        private void SwitchToVisitedFarm()
+        {
+            
+
+        }
 
         private void achievementButton_Click(object sender, RoutedEventArgs e)
         {
@@ -102,5 +108,54 @@ namespace HarvestHaven
             farmScreen.Show();
             this.Close();
         }
+
+        private void leaderboardList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void User_Click(object sender, RoutedEventArgs e)
+        {
+            User clickedUser = (User)(sender as Button).DataContext;
+
+            Guid userId = clickedUser.Id;
+            if (userId == GameStateManager.GetCurrentUser()?.Id)
+            {
+                return;
+            }
+            VisitedFarm visitedFarm = new VisitedFarm(userId, this);
+            visitedFarm.Show();
+            this.Hide();
+        }
+
+        //public T FindDescendant<T>(DependencyObject obj) where T : DependencyObject
+        //{
+        //    // Check if this object is the specified type
+        //    if (obj is T)
+        //        return obj as T;
+
+        //    // Check for children
+        //    int childrenCount = VisualTreeHelper.GetChildrenCount(obj);
+        //    if (childrenCount < 1)
+        //        return null;
+
+        //    // First check all the children
+        //    for (int i = 0; i < childrenCount; i++)
+        //    {
+        //        DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+        //        if (child is T)
+        //            return child as T;
+        //    }
+
+        //    // Then check the childrens children
+        //    for (int i = 0; i < childrenCount; i++)
+        //    {
+        //        DependencyObject child = FindDescendant<T>(VisualTreeHelper.GetChild(obj, i));
+        //        if (child != null && child is T)
+        //            return child as T;
+        //    }
+
+        //    return null;
+        //}
     }
 }
