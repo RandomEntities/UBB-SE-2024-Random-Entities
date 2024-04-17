@@ -52,7 +52,7 @@
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Height="57">
+                    <DockPanel LastChildFill="True">
                         <DockPanel.Background>
                             <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
                         </DockPanel.Background>
@@ -60,9 +60,11 @@
                             <Image Source="{StaticResource FrameImage}" Width="40" Height="40" Margin="12,0,0,0"></Image>
                             <Image Source="{Binding ImageSource}" Width="35" Height="35" Margin="-37.5,0,9,0"></Image>
                         </DockPanel>
-                        <TextBlock Text="{Binding Description}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
+                        <DockPanel HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding Description}" Foreground="White" FontSize="19" Margin="0,13,12,13" TextWrapping="Wrap" Width="220" VerticalAlignment="Center"/>
+                        </DockPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock x:Name="coins" Text="{Binding RewardCoins}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
+                            <TextBlock x:Name="coins" Text="{Binding RewardCoins}" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
                             <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
                         </StackPanel>
                     </DockPanel>
