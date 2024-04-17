@@ -224,5 +224,16 @@ namespace HarvestHaven
             profileTab.Show();
             this.Close();
         }
+
+        private void CommentButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            CommentScreen commentScreen = new CommentScreen(this, userId);
+
+            commentScreen.Top = this.Top;
+            commentScreen.Left = this.Left;
+
+            commentScreen.Show();
+            this.Hide();
+        }
     }
 }

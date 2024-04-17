@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarvestHaven.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,24 +20,42 @@ namespace HarvestHaven
     /// </summary>
     public partial class CommentScreen : Window
     {
-        public CommentScreen()
+        VisitedFarm visitedFarm;
+        Guid userId;
+
+        public CommentScreen(VisitedFarm visitedFarm, Guid userId)
         {
+            this.visitedFarm = visitedFarm;
+            this.userId = userId;
+
             InitializeComponent();
         }
 
-        private void CommentTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void BackToVisitedFarm()
         {
+            visitedFarm.Top = this.Top;
+            visitedFarm.Left = this.Left;
 
+            visitedFarm.Show();
+            this.Close();
         }
 
-        private void Button_Click_Send(object sender, RoutedEventArgs e)
+        private async void Button_Click_Send(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                await UserService.AddCommentForAnotherUser(userId, CommentTextBox.Text);
+                BackToVisitedFarm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click_Back(object sender, RoutedEventArgs e)
         {
-
+            BackToVisitedFarm();
         }
     }
 }

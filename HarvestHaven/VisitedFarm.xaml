@@ -243,9 +243,14 @@
         <!--#endregion-->
 
         <!--#region Templates-->
-        
         <Image x:Name="itemIcon" HorizontalAlignment="Left" Height="70" Margin="237,286,0,0" VerticalAlignment="Top" Width="70" Source="/Assets/Sprites/Items/carrot.png" Visibility="Hidden" Cursor="Hand"/>
         <Button x:Name="EnhanceButton" Content="Enhance" HorizontalAlignment="Left" Margin="237,379,0,0" VerticalAlignment="Top" Width="68" Height="18" FontSize="10" MouseEnter="EnhanceButton_MouseEnter" MouseLeave="EnhanceButton_MouseLeave" Click="Enhance" Visibility="Hidden" Panel.ZIndex="1"/>
+        <!--#endregion-->
+
+        <!--#region CommentSign-->
+        <Image HorizontalAlignment="Left" Height="173" Margin="720,407,0,0" VerticalAlignment="Top" Width="172" Source="/Assets/Sprites/wooden_sign_icon.png"/>
+        <Label Content="Comment" HorizontalAlignment="Left" Margin="746,442,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+        <Rectangle x:Name="CommentButton" HorizontalAlignment="Left" Height="122" Margin="720,428,0,0" VerticalAlignment="Top" Width="170" Fill="#00000000" MouseDown="CommentButton_MouseDown"/>
         <!--#endregion-->
     </Grid>
 </Window>
