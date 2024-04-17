@@ -86,24 +86,31 @@
 
             </ListBox.Items>
         </ListBox>
-        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411">
+        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411" SelectionChanged="leaderboardList_SelectionChanged">
             <ListBox.Resources>
                 <BitmapImage x:Key="FaceImage" UriSource="/Assets/Sprites/sunglasses_face_icon.png"/>
                 <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Height="57">
-                        <DockPanel.Background>
-                            <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
-                        </DockPanel.Background>
-                        <Image Source="{StaticResource FaceImage}" Height="35" Width="35" Margin="9,0,9,0"></Image>
-                        <TextBlock x:Name="username" Text="{Binding Username}" Foreground="White" FontSize="19" Margin="0,13,12,0"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock x:Name="coins" Text="{Binding Coins}" Foreground="White" FontSize="22" Margin="0,11,12,0"/>
-                            <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
-                        </StackPanel>
-                    </DockPanel>
+                    <Button Click="User_Click" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <DockPanel >
+                                    <DockPanel.Background>
+                                        <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                                    </DockPanel.Background>
+                                  
+                                    <Image Source="{StaticResource FaceImage}" Height="35" Width="35" Margin="9,0,9,0"></Image>
+                                    <TextBlock x:Name="username" Text="{Binding Username}" Foreground="White" FontSize="19" Margin="0,13,12,13" VerticalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <TextBlock x:Name="coins" Text="{Binding Coins}" Foreground="White" FontSize="22" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                        <Image Source="{StaticResource CoinImage}"  Margin="0,0,12,0" Width="35"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <ListBox.ItemContainerStyle>
